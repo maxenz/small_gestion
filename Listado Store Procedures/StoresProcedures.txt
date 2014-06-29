@@ -1,0 +1,341 @@
+﻿/********** GetRubros **********/ 
+
+CREATE PROCEDURE [SMALL].[GetRubros]
+AS
+
+    SELECT ID,Descripcion
+    FROM SMALL.Rubro
+GO
+
+
+/********** GetNewPublicacionNumber **********/ 
+
+CREATE PROCEDURE [SMALL].[GetNewPublicacionNumber]
+AS
+
+	SELECT TOP 1 ID FROM SMALL.Publicacion 
+	ORDER BY ID DESC
+GO
+
+
+/********** GetEstadosPublicacion **********/ 
+
+CREATE PROCEDURE [SMALL].[GetEstadosPublicacion]
+AS
+
+	SELECT * FROM SMALL.Estado_Publicacion
+	ORDER BY ID
+GO
+
+
+/********** GetEstadoPublicacion **********/ 
+
+CREATE PROCEDURE [SMALL].[GetEstadoPublicacion]
+@id INT = 0
+AS
+
+	SELECT * FROM SMALL.Estado_Publicacion
+	WHERE ID = @id
+	ORDER BY ID
+GO
+
+/********** GetPublicacion **********/ 
+
+CREATE PROCEDURE [SMALL].[GetPublicacion]
+@id INT = 0
+AS
+
+	SELECT * FROM SMALL.Publicacion
+	WHERE ID = @id
+	ORDER BY ID
+GO
+
+/********** GetTiposPublicacion **********/ 
+
+CREATE PROCEDURE [SMALL].[GetTiposPublicacion]
+AS
+
+	SELECT * FROM SMALL.Tipo_Publicacion
+	ORDER BY ID
+GO
+
+
+/********** GetTipoPublicacion **********/ 
+
+CREATE PROCEDURE [SMALL].[GetTipoPublicacion]
+@id INT = 0
+AS
+
+	SELECT * FROM SMALL.Tipo_Publicacion
+	WHERE ID = @id
+	ORDER BY ID
+GO
+
+
+/********** GetRubrosFromPublicacion **********/ 
+
+CREATE PROCEDURE [SMALL].[GetRubrosFromPublicacion]
+@id INT = 0
+AS
+
+	SELECT rub.ID,rub.Descripcion FROM SMALL.Rubro rub
+    LEFT JOIN SMALL.Publicacion_Rubro pubrub ON(rub.ID = pubrub.ID_Rubro) 
+    WHERE pubrub.ID_Publicacion = @id
+    ORDER BY rub.ID
+GO
+
+/********** GetPersonas **********/ 
+
+CREATE PROCEDURE [SMALL].[GetPersonas]
+AS
+
+	SELECT * FROM SMALL.Persona per
+	LEFT JOIN SMALL.Cliente cli ON (cli.ID_Persona = per.ID)
+	LEFT JOIN SMALL.Empresa emp ON (emp.ID_Persona = per.ID)
+	ORDER BY ID
+GO
+
+/********** GetLastPublicacionFacturada **********/ 
+
+CREATE PROCEDURE [SMALL].[GetLastPublicacionFacturada]
+@idPersona INT = 0
+AS
+
+	SELECT TOP 1 fac.ID as ID_Factura,itm.ID_Publicacion, pub.Fecha_Vencimiento
+	FROM SMALL.Item_Factura itm
+	LEFT JOIN SMALL.Factura fac ON (fac.ID = itm.ID_Venta)
+	LEFT JOIN SMALL.Publicacion pub ON (itm.ID_Publicacion = pub.ID)
+	WHERE fac.ID_Persona = @idPersona
+	GROUP BY fac.ID, itm.ID_Publicacion, pub.Fecha_Vencimiento
+	ORDER BY pub.Fecha_Vencimiento DESC
+
+GO
+
+/********** GetPublicacionesAFacturar **********/ 
+
+CREATE PROCEDURE [SMALL].[GetPublicacionesAFacturar]
+(@cantAFacturar INT, @fechaUltimaFacturada VARCHAR(100), @idPersona INT)
+AS
+
+	SELECT TOP (@cantAFacturar) * FROM small.PUBLICACION
+	WHERE Fecha_Vencimiento > @fechaUltimaFacturada
+	 AND ID_Estado = 3
+	 AND ID_Persona_Venta = @idPersona
+	ORDER BY Fecha_Vencimiento ASC
+
+GO
+
+/********** SetPublicacion **********/ 
+
+CREATE PROCEDURE [SMALL].[SetPublicacion]
+(@codigoPublicacion INT, @idVisibilidad INT, @idTipoPublicacion INT, @idEstado INT,
+@idPersona INT, @descripcion nvarchar(225),@fechaInicio datetime,
+@fechaVencimiento datetime, @stock INT, @precio numeric(18,2),
+@valorInicialSubasta numeric(18,2), @habPreguntas bit)
+AS
+
+INSERT INTO SMALL.Publicacion (ID,ID_Visibilidad, ID_Tipo_Publicacion, ID_Estado,
+ID_Persona_Venta, Descripcion, Fecha_Inicio, Fecha_Vencimiento, Stock,
+Precio, Valor_Inicial_Subasta, Hab_Preguntas) 
+VALUES
+(@codigoPublicacion,@idVisibilidad,@idTipoPublicacion,@idEstado,@idPersona,@descripcion,@fechaInicio,
+@fechaVencimiento, @stock, @precio, @valorInicialSubasta, @habPreguntas)
+
+GO
+
+/********** UpdatePublicacion **********/ 
+
+CREATE PROCEDURE [SMALL].[UpdatePublicacion]
+(@codigoPublicacion INT, @idVisibilidad INT, @idTipoPublicacion INT, @idEstado INT,
+@idPersona INT, @descripcion nvarchar(225),@fechaInicio datetime,
+@fechaVencimiento datetime, @stock INT, @precio numeric(18,2),
+@valorInicialSubasta numeric(18,2), @habPreguntas bit)
+AS
+
+UPDATE SMALL.Publicacion SET ID_Visibilidad = @idVisibilidad,
+ID_Tipo_Publicacion = @idTipoPublicacion, ID_Estado = @idEstado, ID_Persona_Venta = @idPersona,
+Descripcion = @descripcion, Fecha_Inicio = @fechaInicio, Fecha_Vencimiento = @fechaVencimiento,
+Stock = @stock, Precio = @precio, Valor_Inicial_Subasta = @valorInicialSubasta,
+Hab_Preguntas = @habPreguntas
+WHERE ID = @codigoPublicacion
+
+GO
+
+/********** DeleteRubroPublicacion **********/ 
+CREATE PROCEDURE [SMALL].[DeleteRubroPublicacion]
+(@idPublicacion INT, @idRubro INT)
+AS
+
+DELETE FROM SMALL.Publicacion_Rubro WHERE ID_Publicacion = @idPublicacion AND ID_Rubro = @idRubro
+
+GO
+
+/********** SetFactura **********/ 
+
+CREATE PROCEDURE [SMALL].[SetFactura](@formaDePago VARCHAR(200),
+ @descDePago VARCHAR(200),@idPersona INT, @fecha DATETIME)
+
+AS
+
+Declare @idFactura INT
+
+SELECT @idFactura = (MAX(ID) + 1) FROM SMALL.Factura
+
+INSERT INTO SMALL.Factura (ID,ID_Persona,Fecha,Forma_Pago,Desc_Forma_Pago)
+VALUES
+(@idFactura,@idPersona,@fecha,@formaDePago,@descDePago)
+
+SELECT MAX(ID) AS ID FROM SMALL.Factura
+
+GO
+
+/********** GetVisibilidad **********/ 
+
+CREATE PROCEDURE [SMALL].[GetVisibilidad](@idVisibilidad INT)
+
+AS
+
+SELECT * FROM SMALL.Visibilidad WHERE ID = @idVisibilidad
+
+GO
+
+/********** GetComprasPublicacion **********/ 
+
+CREATE PROCEDURE [SMALL].[GetComprasPublicacion](@idPublicacion INT)
+
+AS
+
+SELECT * FROM SMALL.Compra WHERE ID_Publicacion = @idPublicacion
+
+GO
+
+/********** GetOfertaGanadora **********/ 
+
+CREATE PROCEDURE [SMALL].[GetOfertaGanadora](@idPublicacion INT)
+
+AS
+
+SELECT *
+ FROM SMALL.Oferta 
+ WHERE ID_Publicacion = @idPublicacion AND Es_Oferta_Ganadora = 1
+ 
+ GO
+ 
+/********** SetItemFactura **********/ 
+ 
+ CREATE PROCEDURE [SMALL].[SetItemFactura](@idFactura INT,
+ @cantidad INT, @monto numeric(18,2), @idPublicacion INT)
+ 
+ AS
+ 
+INSERT INTO SMALL.Item_Factura (ID_Venta, Cantidad, Monto, ID_Publicacion)
+VALUES
+(@idFactura, @cantidad, @monto, @idPublicacion)
+ 
+ GO
+ 
+ /********** UpdateMontoFactura **********/ 
+ 
+ CREATE PROCEDURE [SMALL].[UpdateMontoFactura](@idFactura INT,
+ @monto numeric(18,2))
+ 
+ AS
+ 
+UPDATE SMALL.Factura SET Total = @monto WHERE ID = @idFactura 
+ 
+ GO
+ 
+  /********** SetContadorVisibilidad **********/ 
+ 
+ CREATE PROCEDURE [SMALL].[SetContadorVisibilidad](@idVisibilidad INT, @contador INT)
+ 
+ AS
+ 
+ UPDATE SMALL.Visibilidad SET Contador = @contador WHERE ID = @idVisibilidad
+ 
+ GO
+ 
+   /********** GetVisibilidades **********/ 
+ 
+ CREATE PROCEDURE [SMALL].[GetVisibilidades]
+ 
+ AS
+ 
+  SELECT * FROM SMALL.Visibilidad
+ 
+ GO
+ 
+ /********** GetCantPublActualesGratis **********/ 
+    
+CREATE PROCEDURE [SMALL].[GetCantPublActualesGratis] (@idUsuario INT)
+
+AS
+
+	SELECT COUNT(*) as Cantidad
+	FROM SMALL.Publicacion 
+	WHERE ID_Persona_Venta = @idUsuario AND
+	ID_Estado <> 3
+
+GO
+
+/********** GetPublicacionesCalificaciones **********/
+
+CREATE PROCEDURE [SMALL].[GetPublicacionesCalificaciones]
+(@idPersona INT)
+AS
+
+SELECT *
+FROM SMALL.Publicacion pub
+WHERE 
+pub.ID_Persona_Venta = @idPersona
+AND pub.ID_Estado = 3
+AND
+((SELECT COUNT(*) FROM SMALL.Calificacion WHERE ID_Publicacion = pub.ID) = 0)
+ORDER BY pub.Fecha_Vencimiento ASC
+
+GO
+
+/********** SetCalificacion **********/
+
+CREATE PROCEDURE [SMALL].[SetCalificacion]
+(@idPublicacion INT, @cEstrellas INT, @detalle VARCHAR(200),@fechaActual DATETIME,
+@idPersona INT)
+
+AS
+DECLARE
+@idCalif INT
+
+SELECT @idCalif = (MAX(ID)+1) FROM SMALL.Calificacion
+
+INSERT INTO SMALL.Calificacion (ID,ID_Publicacion,Estrellas,Descripcion,Fecha, ID_Persona_Calificacion)
+VALUES
+(@idCalif,@idPublicacion,@cEstrellas,@detalle,@fechaActual,@idPersona)
+
+GO
+
+/********** SetRubroPublicacion **********/
+
+CREATE PROCEDURE [SMALL].[SetRubroPublicacion]
+(@idPublicacion INT, @idRubro INT)
+
+AS
+
+INSERT INTO SMALL.Publicacion_Rubro (ID_Publicacion,ID_Rubro)
+VALUES
+(@idPublicacion,@idRubro)
+
+GO
+
+/********** GetUserID **********/
+
+CREATE PROCEDURE [SMALL].[GetUserID]
+(@nomUsuario VARCHAR(200))
+
+AS
+
+SELECT ID FROM SMALL.Usuario WHERE Usuario = @nomUsuario
+
+GO
+
+ 
+ 
