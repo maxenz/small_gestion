@@ -17,7 +17,7 @@ namespace FrbaCommerce
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MenuInicio());
+            Application.Run(new LoginForm(new MenuPrincipal()));
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //var menu = new MenuPrincipal();

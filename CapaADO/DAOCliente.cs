@@ -25,11 +25,12 @@ namespace FrbaCommerce.CapaADO
                 cliente.Cuil, cliente.FechaDeNacimiento);
         }
 
-        public static void AgregarCliente(Cliente cliente)
+        public static int AgregarCliente(Cliente cliente)
         {
             var id = DAOPersona.AgregarPersona(cliente.Persona);
             executeProcedure("agregarCliente", id, cliente.Nombre, cliente.Apellido, cliente.TipoDoc, cliente.Documento,
                 cliente.Cuil, cliente.FechaDeNacimiento);
+            return id;
         }
 
         public static bool existeDni(string dni, int tipo)

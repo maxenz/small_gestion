@@ -52,7 +52,7 @@ namespace FrbaCommerce
 
         private void loginToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           new LoginForm(this).Show();
+           new LoginForm(new MenuPrincipal()).Show();
         }
 
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)

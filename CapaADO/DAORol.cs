@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using FrbaCommerce.Exceptions;
 using FrbaCommerce.Model;
 
 namespace FrbaCommerce.CapaADO
 {
     class DAORol:SqlConnector
     {
-        public static List<Rol> getRolesUsuario(string nombreUsuario)
+        public static DataTable getRolesUsuario(int id)
         {
-            throw new NotImplementedException();
+            var table =  retrieveDataTable("getRolesUsuario", id);
+            if (table == null) throw new UsuarioSinRolesAsignadosException("");
+            return table;
         }
 
         public static void AgregarRol(Rol rol)
@@ -58,12 +61,8 @@ namespace FrbaCommerce.CapaADO
 
         public static void UpdateRol(Rol rol)
         {
-            executeProcedure("updateRol", rol.Codigo, rol.Nombre);
-
-            foreach (var func in rol.Funcionalidades)
-            {       
-                executeProcedure("updateRolFunc", rol.Codigo, func+1);
-            }
+            executeProcedure("dropRol", rol.Codigo);
+            AgregarRol(rol);
         }
     }
 }

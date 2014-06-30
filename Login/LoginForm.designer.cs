@@ -35,6 +35,7 @@
             this.errorBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnSignUp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // login_button
@@ -95,11 +96,23 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Password";
             // 
+            // btnSignUp
+            // 
+            this.btnSignUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F);
+            this.btnSignUp.Location = new System.Drawing.Point(180, 64);
+            this.btnSignUp.Name = "btnSignUp";
+            this.btnSignUp.Size = new System.Drawing.Size(75, 23);
+            this.btnSignUp.TabIndex = 6;
+            this.btnSignUp.Text = "Registrarse";
+            this.btnSignUp.UseVisualStyleBackColor = true;
+            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(258, 134);
+            this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.errorBox);
@@ -127,5 +140,6 @@
         private System.Windows.Forms.TextBox errorBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnSignUp;
     }
 }

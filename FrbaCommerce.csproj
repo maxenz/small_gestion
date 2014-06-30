@@ -146,11 +146,29 @@
     <Compile Include="Abm Rubro\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Visibilidad\Form1.cs">
+    <Compile Include="Abm Visibilidad\AbmVisibilidadForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Visibilidad\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Visibilidad\AbmVisibilidadForm.Designer.cs">
+      <DependentUpon>AbmVisibilidadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Visibilidad\AltaVisibilidadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Visibilidad\AltaVisibilidadForm.Designer.cs">
+      <DependentUpon>AltaVisibilidadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Visibilidad\FiltrarVisibilidadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Visibilidad\FiltrarVisibilidadForm.Designer.cs">
+      <DependentUpon>FiltrarVisibilidadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Visibilidad\ModVisibilidadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Visibilidad\ModVisibilidadForm.Designer.cs">
+      <DependentUpon>ModVisibilidadForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Calificar Vendedor\Calificar.cs">
       <SubType>Form</SubType>
@@ -246,6 +264,18 @@
     <Compile Include="Login\LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\RegistrarUsuarioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\RegistrarUsuarioForm.Designer.cs">
+      <DependentUpon>RegistrarUsuarioForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\RolesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\RolesForm.Designer.cs">
+      <DependentUpon>RolesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuInicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,16 +315,16 @@
     <Compile Include="Modelo\Rubro.cs" />
     <Compile Include="Modelo\TipoPublicacion.cs" />
     <Compile Include="Modelo\Visibilidad.cs" />
-    <Compile Include="Model\Campo.cs" />
-    <Compile Include="Model\Cliente.cs" />
-    <Compile Include="Model\Empresa.cs" />
-    <Compile Include="Model\Error.cs" />
-    <Compile Include="Model\Funcionalidad.cs" />
-    <Compile Include="Model\Hasher.cs" />
-    <Compile Include="Model\ICampoAbstracto.cs" />
+    <Compile Include="Modelo\Campo.cs" />
+    <Compile Include="Modelo\Cliente.cs" />
+    <Compile Include="Modelo\Empresa.cs" />
+    <Compile Include="Modelo\Error.cs" />
+    <Compile Include="Modelo\Funcionalidad.cs" />
+    <Compile Include="Modelo\Hasher.cs" />
+    <Compile Include="Modelo\ICampoAbstracto.cs" />
     <Compile Include="Model\Persona.cs" />
-    <Compile Include="Model\Rol.cs" />
-    <Compile Include="Model\Usuario.cs" />
+    <Compile Include="Modelo\Rol.cs" />
+    <Compile Include="Modelo\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Abm Cliente\AbmClienteForm.resx">
@@ -332,6 +362,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Rol\ModificarRolForm.resx">
       <DependentUpon>ModificarRolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Visibilidad\AbmVisibilidadForm.resx">
+      <DependentUpon>AbmVisibilidadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Visibilidad\AltaVisibilidadForm.resx">
+      <DependentUpon>AltaVisibilidadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Visibilidad\FiltrarVisibilidadForm.resx">
+      <DependentUpon>FiltrarVisibilidadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Visibilidad\ModVisibilidadForm.resx">
+      <DependentUpon>ModVisibilidadForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Calificar Vendedor\Calificar.resx">
       <DependentUpon>Calificar.cs</DependentUpon>
@@ -371,6 +413,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\RegistrarUsuarioForm.resx">
+      <DependentUpon>RegistrarUsuarioForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\RolesForm.resx">
+      <DependentUpon>RolesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuInicio.resx">
       <DependentUpon>MenuInicio.cs</DependentUpon>

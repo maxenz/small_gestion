@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using FrbaCommerce.CapaADO;
 using FrbaCommerce.Exceptions;
+using FrbaCommerce.Helpers;
 using FrbaCommerce.Model;
 
 namespace FrbaCommerce.Login
@@ -61,22 +62,31 @@ namespace FrbaCommerce.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            ////Loggeo directo hasta que esten hechos los procedimientos en la BDD
-            //_principal.mostrarPantallaUsuario(new Usuario("", new List<Rol>()));
-            //DialogResult = DialogResult.OK;
-            //Close();
-            //return;
-            //
             string nombreUsuario = tBoxNombreUsuario.Text;
             string password = tBoxPassword.Text;
             try
             {
                 Usuario usuario = DAOUsuario.GetUsuario(nombreUsuario, password);
-                Globals.userID = DAOUsuario.GetUserID(nombreUsuario);
-                Globals.userID = DAOUsuario.GetUserID(nombreUsuario);
-                MessageBox.Show("Bienvenido " + nombreUsuario);
-                _principal.mostrarPantallaUsuario(usuario);
+                var roles = DAORol.getRolesUsuario(usuario.Id);
+                if (roles.Rows.Count == 1)
+                {
+                    usuario.RolActivo = (int) roles.Rows[0]["ID"];
+                    MessageBox.Show("Bienvenido " + nombreUsuario);
+                    _principal.mostrarPantallaUsuario(usuario);
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    var rolesForm = new RolesForm(usuario);
+                    if (rolesForm.ShowDialog() == DialogResult.OK)
+                    {
+                        usuario = rolesForm.Usuario;
+                        MessageBox.Show("Bienvenido " + nombreUsuario);
+                        _principal.mostrarPantallaUsuario(usuario);
+                        DialogResult = DialogResult.OK;
+                    }
+                }
+                
                 Close();
             }
 
@@ -110,6 +120,14 @@ namespace FrbaCommerce.Login
             _principal.Visible = true;
             _principal.Activate();
             _principal.Select();
+        }
+
+        private void btnSignUp_Click(object sender, EventArgs e)
+        {
+            string nombreUsuario = tBoxNombreUsuario.Text;
+            string password = tBoxPassword.Text;
+            new RegistrarUsuarioForm(this,nombreUsuario).Show();
+            
         }
 
         

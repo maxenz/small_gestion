@@ -30,10 +30,11 @@ namespace FrbaCommerce.CapaADO
             return empresa;
         }
 
-        public static void AgregarEmpresa(Empresa empresa)
+        public static int AgregarEmpresa(Empresa empresa)
         {
             var id = DAOPersona.AgregarPersona(empresa.Persona);
             executeProcedure("agregarEmpresa",id, empresa.RazonSocial, empresa.Cuit, empresa.NombreContacto, empresa.FechaDeCreacion);
+            return id;
         }
 
 
@@ -46,6 +47,18 @@ namespace FrbaCommerce.CapaADO
         public static void BajaEmpresa(int id)
         {
             DAOPersona.BajaPersona(id,0);
+        }
+
+        public static bool existeRazonSocial(string razonSoc)
+        {
+            var dt = retrieveDataTable("getEmpresaRazonSoc", razonSoc);
+            return dt.Rows.Count > 0;
+        }
+
+        public static bool existeCuit(string cuit)
+        {
+            var dt = retrieveDataTable("getEmpresaCuit", cuit);
+            return dt.Rows.Count > 0;
         }
     }
 }
