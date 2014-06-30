@@ -1,10 +1,12 @@
 
 /********** LOGIN **********/ 
-CREATE PROCEDURE [SMALL].[getUserPassword](@usuario nvarchar(255))
+CREATE PROCEDURE [SMALL].[getUserPassword](@usuario nvarchar(255), @pass nvarchar(255))
 AS
 SELECT U.Pswd AS PassSHA256
 FROM SMALL.Usuario U
 WHERE U.Usuario = @usuario
+AND pwdcompare(@pass,U.Pswd) = 1
+
 GO
 
 CREATE PROCEDURE [SMALL].[raiseInvalidLogin](@usuario nvarchar(255))

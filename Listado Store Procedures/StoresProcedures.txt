@@ -337,5 +337,47 @@ SELECT ID FROM SMALL.Usuario WHERE Usuario = @nomUsuario
 
 GO
 
+/********** AgregarUsuario **********/
+
+
+CREATE PROCEDURE [SMALL].[AgregarUsuario]
+(@id INT, @user nvarchar(255),@pass nvarchar(255))
+
+AS
+
+DECLARE @userID INT
+
+INSERT INTO SMALL.Usuario
+(ID_Persona,Usuario,Pswd,IntentosFallidos)
+VALUES (@id,@user,pwdencrypt(@pass),0)
+
+SELECT TOP 1 @userID = ID FROM SMALL.Usuario ORDER BY ID DESC
+
+RETURN @userID
+
+GO
+
+/********** AgregarUsuarioRol **********/
+CREATE PROCEDURE [SMALL].[AgregarUsuarioRol]
+(@userID INT, @rolID INT)
+
+AS
+
+INSERT INTO SMALL.Usuario_Rol VALUES (@userID,@rolID)
+
+GO
+
+/********** GetRolesUsuario **********/
+
+CREATE PROCEDURE [SMALL].[GetRolesUsuario]
+(@id INT)
+
+AS
+
+SELECT ID_ROL as ID FROM SMALL.Usuario_Rol WHERE ID_USUARIO = @id
+
+GO
+
+
  
  

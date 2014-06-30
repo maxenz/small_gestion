@@ -28,8 +28,21 @@ namespace FrbaCommerce.Login
 
             cbTipoDoc.DataSource = DAOCliente.TiposDocumento().DefaultView;
             cbTipoDoc.DisplayMember = "Descripcion";
-        
-            cbTipoUsuario.DataSource = new List<string> {"Cliente","Empresa"};
+
+            DataTable dt = CapaADO.DAORol.getRoles();
+            List<Rol> lstRoles = new List<Rol>();
+            foreach (DataRow r in dt.Rows)
+            {
+                lstRoles.Add(CapaADO.DAORol.dataRowToRol(r));
+            }
+
+            lstRoles = lstRoles.Where(x => x.Nombre != "Administrador").ToList();
+            cbTipoUsuario.DataSource = lstRoles;
+            cbTipoUsuario.DisplayMember = "Nombre";
+            cbTipoUsuario.ValueMember = "Codigo";
+            cbTipoUsuario.Text = "Cliente";
+
+            
         }
 
         private bool ValidarUsuario()
@@ -41,14 +54,15 @@ namespace FrbaCommerce.Login
 
         private void cbTipoUsuario_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var index = cbTipoUsuario.SelectedIndex;
-            switch (index)
+            var desc = cbTipoUsuario.Text;
+            var prueba = cbTipoUsuario.SelectedValue;
+            switch (desc)
             {
-                case 0:
+                case "Cliente":
                     pnlCliente.Visible = true;
                     pnlEmpresa.Visible = false;
                     break;
-                case 1:
+                case "Empresa":
                     pnlCliente.Visible = false;
                     pnlEmpresa.Visible = true;
                     break;
@@ -61,7 +75,8 @@ namespace FrbaCommerce.Login
             try
             {
                 personaId = DAOCliente.AgregarCliente(GenerarCliente());
-                DAOUsuario.AgregarUsuario(personaId, tbUsuario.Text, tbPass.Text, 3);
+                DAOUsuario.AgregarUsuario(personaId, tbUsuario.Text, tbPass.Text, 
+                    Convert.ToInt32(cbTipoUsuario.SelectedValue));
 
                 MessageBox.Show("Usuario agregado correctamente.");
             }

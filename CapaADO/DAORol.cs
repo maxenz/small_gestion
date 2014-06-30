@@ -54,7 +54,7 @@ namespace FrbaCommerce.CapaADO
             return rol;
         }
 
-        private static Rol dataRowToRol(DataRow dr)
+        public static Rol dataRowToRol(DataRow dr)
         {
             return new Rol(Convert.ToInt32(dr["ID"]),dr["Nombre"].ToString(),dr["Activo"].ToString()=="1");
         }

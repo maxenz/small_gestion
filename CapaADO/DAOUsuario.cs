@@ -11,9 +11,9 @@ namespace FrbaCommerce.CapaADO
 {
     public class DAOUsuario : SqlConnector
     {
-        public static string GetUserPassword(string nombreUsuario)
+        public static string GetUserPassword(string nombreUsuario, string pass)
         {
-            DataTable dt = retrieveDataTable("getUserPassword", nombreUsuario);
+            DataTable dt = retrieveDataTable("getUserPassword", nombreUsuario, pass);
 
             if (dt.Rows.Count == 0) return null;
 
@@ -44,16 +44,17 @@ namespace FrbaCommerce.CapaADO
 
         public static Usuario GetUsuario(string nombreUsuario, string password)
         {
-            var passObtenido = GetUserPassword(nombreUsuario); //Traigo el hash del password del usuario en la tabla
-            var passIngresado = Hasher.Hash(password); //Hasheo el password ingresado
+            
 
-            if (passObtenido == null) throw new UsuarioNoEncontradoException(nombreUsuario);
+            var passwordCoincide = GetUserPassword(nombreUsuario, password);
+
+            if (getUsuarioID(nombreUsuario) == 0) throw new UsuarioNoEncontradoException(nombreUsuario);
 
             //Valido que el usuario no haya pasado el limite de logins invalidos
             if (GetInvalidLogins(nombreUsuario) >= 3) throw new UsuarioAlcanzoLimiteLoginsException(nombreUsuario);
 
             //Chequeo que los hash coincidan
-            if (passObtenido.Equals(passIngresado))
+            if (passwordCoincide != null)
             {
                 ResetInvalidLogins(nombreUsuario); //reseteo la cantidad de intentos de logins fallidos
                 var id = getUsuarioID(nombreUsuario);
@@ -73,13 +74,13 @@ namespace FrbaCommerce.CapaADO
 
         public static int getUsuarioID(string nombreUsuario)
         {
-            var dt = retrieveDataTable("getUsuarioID", nombreUsuario);
-            return Convert.ToInt32(dt.Rows[0]["ID_Persona"]);
+            var dt = retrieveDataTable("getUserID", nombreUsuario);
+            return Convert.ToInt32(dt.Rows[0]["ID"]);
         }
 
         public static List<int> GetRolesUsuario(int id)
         {
-            var dt = retrieveDataTable("getRolesUsuario", id);
+            var dt = retrieveDataTable("GetRolesUsuario", id);
             return (from DataRow fila in dt.Rows select Convert.ToInt32(fila["ID"])).ToList();
         }
 
@@ -90,15 +91,15 @@ namespace FrbaCommerce.CapaADO
 
         public static bool UsuarioExistente(string usuario)
         {
-            var dt = retrieveDataTable("getUsuarioID", usuario);
+            var dt = retrieveDataTable("GetUserID", usuario);
             return dt.Rows.Count > 0;
         }
 
         public static void AgregarUsuario(int id, string user, string pass, int rol)
         {
-            var idUser = executeProcedureWithReturnValue("agregarUsuario",id,user,Hasher.Hash(pass));
+            var idUser = executeProcedureWithReturnValue("AgregarUsuario",id,user,pass);
 
-            executeProcedure("agregarUsuarioRol",idUser,rol);
+            executeProcedure("AgregarUsuarioRol",idUser,rol);
         }
 
         public static void AgregarUsuarioAuto(int personaId, string user, string s, int i)

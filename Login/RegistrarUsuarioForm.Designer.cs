@@ -66,16 +66,16 @@
             this.label16 = new System.Windows.Forms.Label();
             this.pnlCliente = new System.Windows.Forms.Panel();
             this.pnlEmpresa = new System.Windows.Forms.Panel();
+            this.btnAltaEmpresa = new System.Windows.Forms.Button();
             this.btnToday = new System.Windows.Forms.Button();
-            this.dtpFechaCreacion = new System.Windows.Forms.DateTimePicker();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.tbCuit = new System.Windows.Forms.TextBox();
+            this.dtpFechaCreacion = new System.Windows.Forms.DateTimePicker();
             this.tbNombreContacto = new System.Windows.Forms.TextBox();
             this.tbRazonSocial = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
-            this.btnAltaEmpresa = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.pnlCliente.SuspendLayout();
             this.pnlEmpresa.SuspendLayout();
@@ -104,8 +104,9 @@
             this.tbPass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPass.Location = new System.Drawing.Point(114, 55);
             this.tbPass.Name = "tbPass";
+            this.tbPass.PasswordChar = '*';
             this.tbPass.Size = new System.Drawing.Size(89, 20);
-            this.tbPass.TabIndex = 3;
+            this.tbPass.TabIndex = 2;
             // 
             // label2
             // 
@@ -135,7 +136,7 @@
             this.cbTipoUsuario.Location = new System.Drawing.Point(423, 29);
             this.cbTipoUsuario.Name = "cbTipoUsuario";
             this.cbTipoUsuario.Size = new System.Drawing.Size(99, 21);
-            this.cbTipoUsuario.TabIndex = 6;
+            this.cbTipoUsuario.TabIndex = 69;
             this.cbTipoUsuario.SelectedIndexChanged += new System.EventHandler(this.cbTipoUsuario_SelectedIndexChanged);
             // 
             // label3
@@ -191,8 +192,8 @@
             // 
             this.tbNroCalle.Location = new System.Drawing.Point(281, 134);
             this.tbNroCalle.Name = "tbNroCalle";
-            this.tbNroCalle.Size = new System.Drawing.Size(29, 20);
-            this.tbNroCalle.TabIndex = 86;
+            this.tbNroCalle.Size = new System.Drawing.Size(44, 20);
+            this.tbNroCalle.TabIndex = 7;
             this.tbNroCalle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SoloNumeros_KeyPress);
             // 
             // label11
@@ -218,7 +219,7 @@
             this.tbDepartamento.Location = new System.Drawing.Point(114, 161);
             this.tbDepartamento.Name = "tbDepartamento";
             this.tbDepartamento.Size = new System.Drawing.Size(89, 20);
-            this.tbDepartamento.TabIndex = 83;
+            this.tbDepartamento.TabIndex = 8;
             // 
             // label13
             // 
@@ -233,8 +234,8 @@
             // 
             this.tbPiso.Location = new System.Drawing.Point(281, 158);
             this.tbPiso.Name = "tbPiso";
-            this.tbPiso.Size = new System.Drawing.Size(29, 20);
-            this.tbPiso.TabIndex = 81;
+            this.tbPiso.Size = new System.Drawing.Size(44, 20);
+            this.tbPiso.TabIndex = 9;
             this.tbPiso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SoloNumeros_KeyPress);
             // 
             // label8
@@ -251,7 +252,7 @@
             this.tbCalle.Location = new System.Drawing.Point(114, 134);
             this.tbCalle.Name = "tbCalle";
             this.tbCalle.Size = new System.Drawing.Size(89, 20);
-            this.tbCalle.TabIndex = 79;
+            this.tbCalle.TabIndex = 6;
             // 
             // label9
             // 
@@ -267,7 +268,7 @@
             this.tbLocalidad.Location = new System.Drawing.Point(114, 109);
             this.tbLocalidad.Name = "tbLocalidad";
             this.tbLocalidad.Size = new System.Drawing.Size(89, 20);
-            this.tbLocalidad.TabIndex = 77;
+            this.tbLocalidad.TabIndex = 4;
             // 
             // label10
             // 
@@ -283,7 +284,7 @@
             this.tbCiudad.Location = new System.Drawing.Point(114, 83);
             this.tbCiudad.Name = "tbCiudad";
             this.tbCiudad.Size = new System.Drawing.Size(89, 20);
-            this.tbCiudad.TabIndex = 75;
+            this.tbCiudad.TabIndex = 3;
             // 
             // label5
             // 
@@ -298,8 +299,8 @@
             // 
             this.tbCodigoPostal.Location = new System.Drawing.Point(281, 109);
             this.tbCodigoPostal.Name = "tbCodigoPostal";
-            this.tbCodigoPostal.Size = new System.Drawing.Size(29, 20);
-            this.tbCodigoPostal.TabIndex = 73;
+            this.tbCodigoPostal.Size = new System.Drawing.Size(44, 20);
+            this.tbCodigoPostal.TabIndex = 5;
             this.tbCodigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SoloNumeros_KeyPress);
             // 
             // label6
@@ -316,7 +317,7 @@
             this.tbTelefono.Location = new System.Drawing.Point(114, 213);
             this.tbTelefono.Name = "tbTelefono";
             this.tbTelefono.Size = new System.Drawing.Size(89, 20);
-            this.tbTelefono.TabIndex = 71;
+            this.tbTelefono.TabIndex = 11;
             this.tbTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SoloNumeros_KeyPress);
             // 
             // label7
@@ -333,7 +334,7 @@
             this.tbEMail.Location = new System.Drawing.Point(114, 187);
             this.tbEMail.Name = "tbEMail";
             this.tbEMail.Size = new System.Drawing.Size(89, 20);
-            this.tbEMail.TabIndex = 69;
+            this.tbEMail.TabIndex = 10;
             // 
             // label4
             // 
@@ -431,6 +432,16 @@
             this.pnlEmpresa.TabIndex = 92;
             this.pnlEmpresa.Visible = false;
             // 
+            // btnAltaEmpresa
+            // 
+            this.btnAltaEmpresa.Location = new System.Drawing.Point(6, 158);
+            this.btnAltaEmpresa.Name = "btnAltaEmpresa";
+            this.btnAltaEmpresa.Size = new System.Drawing.Size(81, 34);
+            this.btnAltaEmpresa.TabIndex = 56;
+            this.btnAltaEmpresa.Text = "Registrarse";
+            this.btnAltaEmpresa.UseVisualStyleBackColor = true;
+            this.btnAltaEmpresa.Click += new System.EventHandler(this.btnAltaEmpresa_Click);
+            // 
             // btnToday
             // 
             this.btnToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
@@ -441,32 +452,6 @@
             this.btnToday.Text = "Hoy";
             this.btnToday.UseVisualStyleBackColor = true;
             // 
-            // dtpFechaCreacion
-            // 
-            this.dtpFechaCreacion.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaCreacion.Location = new System.Drawing.Point(108, 95);
-            this.dtpFechaCreacion.Name = "dtpFechaCreacion";
-            this.dtpFechaCreacion.Size = new System.Drawing.Size(99, 20);
-            this.dtpFechaCreacion.TabIndex = 54;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(3, 99);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(96, 13);
-            this.label19.TabIndex = 51;
-            this.label19.Text = "Fecha de creacion";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(3, 71);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(32, 13);
-            this.label20.TabIndex = 49;
-            this.label20.Text = "CUIT";
-            // 
             // tbCuit
             // 
             this.tbCuit.Location = new System.Drawing.Point(108, 67);
@@ -474,6 +459,14 @@
             this.tbCuit.Size = new System.Drawing.Size(135, 20);
             this.tbCuit.TabIndex = 36;
             this.tbCuit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SoloNumeros_KeyPress);
+            // 
+            // dtpFechaCreacion
+            // 
+            this.dtpFechaCreacion.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaCreacion.Location = new System.Drawing.Point(108, 95);
+            this.dtpFechaCreacion.Name = "dtpFechaCreacion";
+            this.dtpFechaCreacion.Size = new System.Drawing.Size(99, 20);
+            this.dtpFechaCreacion.TabIndex = 54;
             // 
             // tbNombreContacto
             // 
@@ -488,6 +481,15 @@
             this.tbRazonSocial.Name = "tbRazonSocial";
             this.tbRazonSocial.Size = new System.Drawing.Size(135, 20);
             this.tbRazonSocial.TabIndex = 33;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(3, 99);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(96, 13);
+            this.label19.TabIndex = 51;
+            this.label19.Text = "Fecha de creacion";
             // 
             // label28
             // 
@@ -507,15 +509,14 @@
             this.label29.TabIndex = 31;
             this.label29.Text = "Razon social";
             // 
-            // btnAltaEmpresa
+            // label20
             // 
-            this.btnAltaEmpresa.Location = new System.Drawing.Point(6, 158);
-            this.btnAltaEmpresa.Name = "btnAltaEmpresa";
-            this.btnAltaEmpresa.Size = new System.Drawing.Size(81, 34);
-            this.btnAltaEmpresa.TabIndex = 56;
-            this.btnAltaEmpresa.Text = "Registrarse";
-            this.btnAltaEmpresa.UseVisualStyleBackColor = true;
-            this.btnAltaEmpresa.Click += new System.EventHandler(this.btnAltaEmpresa_Click);
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(3, 71);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(32, 13);
+            this.label20.TabIndex = 49;
+            this.label20.Text = "CUIT";
             // 
             // btnLimpiar
             // 

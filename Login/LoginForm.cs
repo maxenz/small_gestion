@@ -87,7 +87,7 @@ namespace FrbaCommerce.Login
                     }
                 }
                 
-                Close();
+                
             }
 
             catch (UsuarioNoEncontradoException notFound)
@@ -115,12 +115,6 @@ namespace FrbaCommerce.Login
             return Controller.stringValido(username) && Controller.stringValido(password);
         }
 
-        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            _principal.Visible = true;
-            _principal.Activate();
-            _principal.Select();
-        }
 
         private void btnSignUp_Click(object sender, EventArgs e)
         {
@@ -129,8 +123,6 @@ namespace FrbaCommerce.Login
             new RegistrarUsuarioForm(this,nombreUsuario).Show();
             
         }
-
-        
 
     }
 }

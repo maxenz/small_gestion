@@ -48,6 +48,7 @@ namespace FrbaCommerce
             {
                 button.Visible = true;
             }
+            this.Show();
         }
 
         private void loginToolStripMenuItem_Click(object sender, EventArgs e)

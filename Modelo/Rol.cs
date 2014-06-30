@@ -5,8 +5,8 @@ namespace FrbaCommerce.Model
     public class Rol
     {
         public int Codigo { get; set; }
-        public string Nombre;
-        public bool Habilitado;
+        public string Nombre { get; set; }
+        public bool Habilitado { get; set; }
         public List<int> Funcionalidades;
 
         public Rol(string nombre)
