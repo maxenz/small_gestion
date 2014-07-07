@@ -229,6 +229,7 @@
     <Compile Include="Exceptions\RolYaExisteException.cs" />
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Exceptions\UsuarioAlcanzoLimiteLoginsException.cs" />
+    <Compile Include="Exceptions\UsuarioInhabilitado.cs" />
     <Compile Include="Exceptions\UsuarioNoEncontradoException.cs" />
     <Compile Include="Exceptions\UsuarioSinRolesAsignadosException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
@@ -304,7 +305,7 @@
     </Compile>
     <Compile Include="Modelo\RubroPublicacion.cs" />
     <Compile Include="Modelo\EstadoPublicacion.cs" />
-    <Compile Include="Modelo\Globals.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Modelo\Persona.cs" />
     <Compile Include="Modelo\Publicacion.cs" />
     <Compile Include="Modelo\Rubro.cs" />
@@ -319,6 +320,12 @@
     <Compile Include="Modelo\ICampoAbstracto.cs" />
     <Compile Include="Modelo\Rol.cs" />
     <Compile Include="Modelo\Usuario.cs" />
+    <Compile Include="ModificarPassword\frmModificarPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModificarPassword\frmModificarPassword.Designer.cs">
+      <DependentUpon>frmModificarPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Abm Cliente\AbmClienteForm.resx">
@@ -419,6 +426,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModificarPassword\frmModificarPassword.resx">
+      <DependentUpon>frmModificarPassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -56,13 +56,18 @@ namespace FrbaCommerce.CapaADO
             //Chequeo que los hash coincidan
             if (passIngresada == passFromDB)
             {
+
+
                 ResetInvalidLogins(nombreUsuario); //reseteo la cantidad de intentos de logins fallidos
                 var id = getUsuarioID(nombreUsuario);
                 var rolesUsuario = GetRolesUsuario(id);
 
+                List<Persona> per = DAO.ADOPersona.getPersonas();
+                per = per.Where(x => x.ID == id).ToList<Persona>();
+                if (per.FirstOrDefault().Activo == 0) throw new UsuarioInhabilitado(nombreUsuario);
+
                 if (rolesUsuario.Count == 0) throw new UsuarioSinRolesAsignadosException(nombreUsuario);
 
-                Globals.setAdminLoggeado(true);
                 return new Usuario(id,nombreUsuario, rolesUsuario);
             }
             
@@ -70,6 +75,23 @@ namespace FrbaCommerce.CapaADO
             RaiseInvalidLogin(nombreUsuario);
             throw new PasswordIncorrectoException();
             
+        }
+
+        public static List<Usuario> getUsuarios()
+        {
+            DataTable dt = retrieveDataTable("getUsuarios");
+            List<Usuario> lst = new List<Usuario>();
+
+            foreach (DataRow r in dt.Rows) {
+                Usuario u = new Usuario(Convert.ToInt32(r["ID"]),r["Usuario"].ToString());
+                lst.Add(u);
+            }
+            return lst; 
+        }
+
+        public static void changePassword(int userID, string hashedPassword)
+        {
+            executeProcedure("changePassword", userID, hashedPassword);
         }
 
         public static int getUsuarioID(string nombreUsuario)

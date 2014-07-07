@@ -7,8 +7,8 @@ namespace FrbaCommerce.Modelo
 {
     public class Usuario
     {
-        public string NombreUsuario;
-        public int Id;
+        public string NombreUsuario { get; set; }
+        public int Id { get; set; }
         public int RolActivo { get; set; }
         private List<int> _roles;
 
@@ -17,6 +17,12 @@ namespace FrbaCommerce.Modelo
             Id = id;
             NombreUsuario = nombre;
             _roles = rol;
+        }
+
+        public Usuario(int id, string nombre)
+        {
+            Id = id;
+            NombreUsuario = nombre;
         }
 
         public List<int> Roles()

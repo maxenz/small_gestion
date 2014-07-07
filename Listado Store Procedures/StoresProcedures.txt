@@ -433,6 +433,25 @@ SELECT * FROM SMALL.Empresa WHERE Razon_Social = @razon_social
 
 GO
 
+/********** GetUsuarios **********/
+CREATE PROCEDURE [SMALL].[GetUsuarios]
+
+AS
+
+SELECT * FROM SMALL.Usuario
+
+GO
+
+/********** changePassword **********/
+CREATE PROCEDURE [SMALL].[changePassword]
+(@userID INT, @hashedPass nvarchar(255))
+
+AS
+
+UPDATE SMALL.Usuario SET Pswd = @hashedPass
+WHERE ID = @userID
+
+GO
 
  
  

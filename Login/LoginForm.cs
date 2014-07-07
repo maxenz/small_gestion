@@ -90,6 +90,13 @@ namespace FrbaCommerce.Login
                     }
                 }
 
+                Globals.userID = usuario.Id;
+
+                if (usuario.RolActivo == 2)
+                {
+                    Globals.setAdminLoggeado(true);
+                }
+
                 this.Hide();
                 
                 
@@ -112,6 +119,11 @@ namespace FrbaCommerce.Login
             catch (UsuarioSinRolesAsignadosException noRolEx)
             {
                 MessageBox.Show("El usuario " + noRolEx.getNombreUsuario() + " no tiene ningun rol asignado.");
+            }
+
+            catch (UsuarioInhabilitado noRolEx)
+            {
+                MessageBox.Show("El usuario " + noRolEx.getNombreUsuario() + " está inhabilitado.");
             }
         }
 

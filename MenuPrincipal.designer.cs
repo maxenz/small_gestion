@@ -37,7 +37,6 @@
             this.btnGenerarPublicacion = new System.Windows.Forms.Button();
             this.btnABMCliente = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.btnABMRubro = new System.Windows.Forms.Button();
             this.btnABMVisibilidad = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -47,6 +46,7 @@
             this.btbABMRol = new System.Windows.Forms.Button();
             this.btnCalificar = new System.Windows.Forms.Button();
             this.btnFacturar = new System.Windows.Forms.Button();
+            this.btnModificarPassword = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -140,15 +140,6 @@
             this.lblTitulo.TabIndex = 7;
             this.lblTitulo.Text = "FRBA Commerce";
             // 
-            // btnABMRubro
-            // 
-            this.btnABMRubro.Location = new System.Drawing.Point(40, 186);
-            this.btnABMRubro.Name = "btnABMRubro";
-            this.btnABMRubro.Size = new System.Drawing.Size(113, 23);
-            this.btnABMRubro.TabIndex = 8;
-            this.btnABMRubro.Text = "ABM Rubro";
-            this.btnABMRubro.UseVisualStyleBackColor = true;
-            // 
             // btnABMVisibilidad
             // 
             this.btnABMVisibilidad.Location = new System.Drawing.Point(40, 215);
@@ -184,6 +175,7 @@
             this.button5.TabIndex = 12;
             this.button5.Text = "Publicar";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -233,6 +225,16 @@
             this.btnFacturar.UseVisualStyleBackColor = true;
             this.btnFacturar.Click += new System.EventHandler(this.btnFacturar_Click);
             // 
+            // btnModificarPassword
+            // 
+            this.btnModificarPassword.Location = new System.Drawing.Point(40, 186);
+            this.btnModificarPassword.Name = "btnModificarPassword";
+            this.btnModificarPassword.Size = new System.Drawing.Size(113, 23);
+            this.btnModificarPassword.TabIndex = 8;
+            this.btnModificarPassword.Text = "Modificar Password";
+            this.btnModificarPassword.UseVisualStyleBackColor = true;
+            this.btnModificarPassword.Click += new System.EventHandler(this.btnModificarPassword_Click);
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,7 +249,7 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnABMVisibilidad);
-            this.Controls.Add(this.btnABMRubro);
+            this.Controls.Add(this.btnModificarPassword);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnABMCliente);
             this.Controls.Add(this.btnABMEmpresa);
@@ -279,7 +281,6 @@
         private System.Windows.Forms.Button btnGenerarPublicacion;
         private System.Windows.Forms.Button btnABMCliente;
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.Button btnABMRubro;
         private System.Windows.Forms.Button btnABMVisibilidad;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
@@ -289,6 +290,7 @@
         private System.Windows.Forms.Button btbABMRol;
         private System.Windows.Forms.Button btnCalificar;
         private System.Windows.Forms.Button btnFacturar;
+        private System.Windows.Forms.Button btnModificarPassword;
     }
 }
 

@@ -156,3 +156,4 @@ C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Abm_Visibilidad.FiltrarV
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Abm_Visibilidad.ModVisibilidadForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Login.RegistrarUsuarioForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Login.RolesForm.resources
+C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.ModificarPassword.frmModificarPassword.resources

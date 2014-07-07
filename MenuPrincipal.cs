@@ -15,6 +15,7 @@ using FrbaCommerce.Helpers;
 using FrbaCommerce.Login;
 using FrbaCommerce.Abm_Empresa;
 using FrbaCommerce.Modelo;
+using FrbaCommerce.ModificarPassword;
 
 namespace FrbaCommerce
 {
@@ -120,6 +121,20 @@ namespace FrbaCommerce
             var frmCalificar = new Calificar_Vendedor.Calificar(this, Globals.userID);
             FormHelper.mostrarNuevaVentana(frmCalificar, this);
         }
+
+        private void btnModificarPassword_Click(object sender, EventArgs e)
+        {
+            var frmModificarPassword = new frmModificarPassword(this);
+            FormHelper.mostrarNuevaVentana(frmModificarPassword, this);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var frmGenPub = new frmGenerarPublicacion(this);
+            //frmGenPub.publicacion = DAO.ADOPublicacion.getPublicacion(1);
+            FormHelper.mostrarNuevaVentana(frmGenPub, this);
+        }
+
 
     }
 }
