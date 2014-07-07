@@ -12,10 +12,10 @@ namespace FrbaCommerce.Modelo
         public string Telefono { get; set; }
         public string Domicilio_Calle { get; set; }
         public long Nro_Calle { get; set; }
-        public int Piso { get; set; }
+        public string Piso { get; set; }
         public string Departamento { get; set; }
         public string Localidad { get; set; }
-        public long Cod_Postal { get; set; }
+        public string Cod_Postal { get; set; }
         public string Ciudad { get; set; }
         public int Activo { get; set; }
         public string Descripcion { get; set; }

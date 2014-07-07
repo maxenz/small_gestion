@@ -251,6 +251,7 @@
       <DependentUpon>Responder.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CleanFormHelper.cs" />
+    <Compile Include="Helpers\Seguridad.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Listado Estadistico\Listados.cs">
       <SubType>Form</SubType>
@@ -275,12 +276,6 @@
     </Compile>
     <Compile Include="Login\RolesForm.Designer.cs">
       <DependentUpon>RolesForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MenuInicio.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MenuInicio.Designer.cs">
-      <DependentUpon>MenuInicio.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Publicacion\frmGenerarPublicacion.cs">
       <SubType>Form</SubType>
@@ -322,7 +317,6 @@
     <Compile Include="Modelo\Funcionalidad.cs" />
     <Compile Include="Modelo\Hasher.cs" />
     <Compile Include="Modelo\ICampoAbstracto.cs" />
-    <Compile Include="Model\Persona.cs" />
     <Compile Include="Modelo\Rol.cs" />
     <Compile Include="Modelo\Usuario.cs" />
     <Compile Include="Program.cs" />
@@ -419,9 +413,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\RolesForm.resx">
       <DependentUpon>RolesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MenuInicio.resx">
-      <DependentUpon>MenuInicio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\frmGenerarPublicacion.resx">
       <DependentUpon>frmGenerarPublicacion.cs</DependentUpon>

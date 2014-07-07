@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 using FrbaCommerce.CapaADO;
 using FrbaCommerce.Exceptions;
 using FrbaCommerce.Helpers;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce.Login
 {
@@ -20,6 +20,7 @@ namespace FrbaCommerce.Login
     {
         MenuPrincipal _principal;
         const int IS_CLIENT = 2;
+        Seguridad seguridad = new Seguridad();
 
         public LoginForm(MenuPrincipal principal)
         {
@@ -60,6 +61,8 @@ namespace FrbaCommerce.Login
             }
         }
 
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             string nombreUsuario = tBoxNombreUsuario.Text;
@@ -86,6 +89,8 @@ namespace FrbaCommerce.Login
                         DialogResult = DialogResult.OK;
                     }
                 }
+
+                this.Hide();
                 
                 
             }

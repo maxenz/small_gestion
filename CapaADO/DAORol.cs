@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using FrbaCommerce.Exceptions;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce.CapaADO
 {
@@ -20,9 +20,9 @@ namespace FrbaCommerce.CapaADO
         public static void AgregarRol(Rol rol)
         {
             rol.Codigo = executeProcedureWithReturnValue("agregarRol", rol.Nombre, rol.Habilitado);
-            foreach (var func in rol.Funcionalidades)
+            foreach (int func in rol.Funcionalidades)
             {
-                executeProcedure("agregarRolFuncionalidad",rol.Codigo,func+1);
+                executeProcedure("agregarRolFuncionalidad",rol.Codigo,func);
             }
         }
 
@@ -42,6 +42,11 @@ namespace FrbaCommerce.CapaADO
             executeProcedure("activarRol", id, act);
         }
 
+        public static void eliminarRolDeUsuarios(int idRol)
+        {
+            executeProcedure("eliminarRolDeUsuarios", idRol);
+        }
+
         public static Rol getRol(int id)
         {
             var table = retrieveDataTable("getRolId", id);
@@ -49,7 +54,7 @@ namespace FrbaCommerce.CapaADO
 
             table = retrieveDataTable("getRolFunc", id);
 
-            var lista = (from DataRow fila in table.Rows select (Convert.ToInt32(fila["ID_Funcionalidad"])) - 1).ToList();
+            var lista = (from DataRow fila in table.Rows select (Convert.ToInt32(fila["ID_Funcionalidad"]))).ToList();
             rol.Funcionalidades = lista;
             return rol;
         }
@@ -61,8 +66,11 @@ namespace FrbaCommerce.CapaADO
 
         public static void UpdateRol(Rol rol)
         {
-            executeProcedure("dropRol", rol.Codigo);
-            AgregarRol(rol);
+            executeProcedure("UpdateRol", rol.Codigo, rol.Nombre);
+            foreach (int func in rol.Funcionalidades)
+            {
+                executeProcedure("agregarRolFuncionalidad", rol.Codigo, func);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using FrbaCommerce.CapaADO;
 using FrbaCommerce.Helpers;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce.ABM_Rol
 {
@@ -20,9 +20,11 @@ namespace FrbaCommerce.ABM_Rol
 
         private void CargarFuncionalidades()
         {
-            clbFuncionalidades.DataSource = DAOFuncionalidades.getFuncionalidades().DefaultView;
             clbFuncionalidades.DisplayMember = "Descripcion";
             clbFuncionalidades.ValueMember = "ID";
+            clbFuncionalidades.DataSource = DAOFuncionalidades.getFuncionalidades();
+            clbFuncionalidades.SelectedItem = null;
+
         }
 
         private void AltaRolForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -37,26 +39,34 @@ namespace FrbaCommerce.ABM_Rol
             {
                 DAORol.AgregarRol(GenerarRol());
                 MessageBox.Show("Rol agregado correctamente.");
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Hubo un error." + ex.Message);
             }
+
+            FormHelper.volverAPadre(_padre);
+            this.Hide();
         }
 
         private Rol GenerarRol()
         {
-            var lista = clbFuncionalidades.CheckedIndices.Cast<int>().ToList();
+            List<int> lst = new List<int>();
+            foreach (Funcionalidad f in clbFuncionalidades.SelectedItems)
+            {
+                lst.Add(f.getCodFuncionalidad());
+            }
 
-            return new Rol(tbNombre.Text, lista);
+            return new Rol(tbNombre.Text, lst);
         }
 
         private bool Validaciones()
         {
             var listaDeErrores = new List<Error>();
-
+            
             if (ValidarNombre() != null) listaDeErrores.Add(ValidarNombre());
-            if (clbFuncionalidades.CheckedIndices.Cast<int>().ToList() == null) listaDeErrores.Add(new Error("Debe seleccionar al menos una Funcionalidad."));
+            if (clbFuncionalidades.SelectedItems.Count == 0) listaDeErrores.Add(new Error("Debe seleccionar al menos una Funcionalidad."));
 
             if (listaDeErrores.Count < 1) return true;
 

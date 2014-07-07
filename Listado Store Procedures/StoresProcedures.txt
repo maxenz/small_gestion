@@ -349,7 +349,7 @@ DECLARE @userID INT
 
 INSERT INTO SMALL.Usuario
 (ID_Persona,Usuario,Pswd,IntentosFallidos)
-VALUES (@id,@user,pwdencrypt(@pass),0)
+VALUES (@id,@user,@pass,0)
 
 SELECT TOP 1 @userID = ID FROM SMALL.Usuario ORDER BY ID DESC
 
@@ -374,7 +374,62 @@ CREATE PROCEDURE [SMALL].[GetRolesUsuario]
 
 AS
 
-SELECT ID_ROL as ID FROM SMALL.Usuario_Rol WHERE ID_USUARIO = @id
+SELECT ID_ROL as ID, SMALL.Rol.Nombre FROM SMALL.Usuario_Rol
+LEFT JOIN SMALL.Rol ON (SMALL.Rol.ID = SMALL.Usuario_Rol.ID_ROL)
+ WHERE ID_USUARIO = @id
+
+GO
+
+/********** getFuncionalidades **********/
+
+CREATE PROCEDURE [SMALL].[getFuncionalidades]
+AS
+SELECT * FROM SMALL.Funcionalidad
+GO
+
+/********** UpdateRol **********/
+
+CREATE PROCEDURE [SMALL].[UpdateRol]
+(@idRol INT, @nom nvarchar(255))
+
+AS
+
+UPDATE SMALL.ROL SET Nombre = @nom WHERE ID = @idRol
+
+DELETE FROM SMALL.ROL_FUNCIONALIDAD WHERE ID_Rol = @idRol
+
+GO
+
+/********** eliminarRolDeUsuarios **********/
+
+CREATE PROCEDURE [SMALL].[eliminarRolDeUsuarios]
+(@idRol INT)
+
+AS
+
+DELETE FROM SMALL.Usuario_Rol
+WHERE ID_Rol = @idRol
+
+GO
+
+/********** getEmpresaCuit **********/
+
+CREATE PROCEDURE [SMALL].[getEmpresaCuit]
+(@cuit nvarchar(255))
+
+AS
+
+SELECT * FROM SMALL.Empresa WHERE Cuit = @cuit
+
+GO
+
+/********** getEmpresaRazonSoc **********/
+CREATE PROCEDURE [SMALL].[getEmpresaRazonSoc]
+(@razon_social nvarchar(255))
+
+AS
+
+SELECT * FROM SMALL.Empresa WHERE Razon_Social = @razon_social
 
 GO
 

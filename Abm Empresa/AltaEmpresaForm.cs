@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.CapaADO;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 using FrbaCommerce.Helpers;
 
 namespace FrbaCommerce.Abm_Empresa
@@ -83,15 +83,15 @@ namespace FrbaCommerce.Abm_Empresa
         {
             var persona = new Persona
             {
-                calle = tbCalle.Text,
-                nroCalle = Convert.ToInt32(tbNroCalle.Text),
-                ciudad = tbCiudad.Text,
-                codPostal = tbCodigoPostal.Text,
-                departamento = tbDepartamento.Text,
-                eMail = tbEMail.Text,
-                localidad = tbLocalidad.Text,
-                piso = tbPiso.Text,
-                telefono = tbTelefono.Text
+                Domicilio_Calle = tbCalle.Text,
+                Nro_Calle = Convert.ToInt32(tbNroCalle.Text),
+                Ciudad = tbCiudad.Text,
+                Cod_Postal = tbCodigoPostal.Text,
+                Departamento = tbDepartamento.Text,
+                Mail = tbEMail.Text,
+                Localidad = tbLocalidad.Text,
+                Piso = tbPiso.Text,
+                Telefono = tbTelefono.Text
             };
             return new Empresa(persona, tbRazonSocial.Text, tbCuit.Text, tbNombreContacto.Text, dtpFechaCreacion.Value);
                

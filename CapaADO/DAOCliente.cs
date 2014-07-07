@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce.CapaADO
 {
@@ -50,7 +50,7 @@ namespace FrbaCommerce.CapaADO
             var persona = DAOPersona.getPersona(Convert.ToInt32(dr["ID_Persona"]));
             var cliente = new Cliente(persona, dr["Nombre"].ToString(), dr["Apellido"].ToString(),
                 dr["Num_Doc"].ToString(), dr["Cuil"].ToString(), Convert.ToByte(dr["Tipo_Doc"]),
-                Convert.ToDateTime(dr["Fecha_Nac"]));
+                dr["Fecha_Nac"].ToString());
             return cliente;
         }
 

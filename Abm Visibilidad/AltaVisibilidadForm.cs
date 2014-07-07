@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using FrbaCommerce.CapaADO;
 using FrbaCommerce.DAO;
 using FrbaCommerce.Exceptions;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce.Abm_Visibilidad

@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.CapaADO;
 using FrbaCommerce.Helpers;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce.Abm_Cliente
 {
@@ -33,22 +33,22 @@ namespace FrbaCommerce.Abm_Cliente
         {
             var p = _cliente.Persona;
 
-            tbCalle.Text = p.calle;
-            tbNroCalle.Text = p.nroCalle.ToString();
-            tbCiudad.Text = p.ciudad;
-            tbCodigoPostal.Text = p.codPostal;
-            tbDepartamento.Text = p.departamento;
-            tbEMail.Text = p.eMail;
-            tbLocalidad.Text = p.localidad;
-            tbPiso.Text = p.piso;
-            tbTelefono.Text = p.telefono;
+            tbCalle.Text = p.Domicilio_Calle;
+            tbNroCalle.Text = p.Nro_Calle.ToString();
+            tbCiudad.Text = p.Ciudad;
+            tbCodigoPostal.Text = p.Cod_Postal;
+            tbDepartamento.Text = p.Departamento;
+            tbEMail.Text = p.Mail;
+            tbLocalidad.Text = p.Localidad;
+            tbPiso.Text = p.Piso.ToString();
+            tbTelefono.Text = p.Telefono;
 
             tbNombre.Text = _cliente.Nombre;
             tbApellido.Text = _cliente.Apellido;
             tbDni.Text = _cliente.Documento;
             tbCuil.Text = _cliente.Cuil;
             cbTipoDoc.SelectedIndex = _cliente.TipoDoc - 1;
-            dtpFechaNac.Value = _cliente.FechaDeNacimiento;
+            dtpFechaNac.Text = _cliente.FechaDeNacimiento;
         }
 
         private void bAceptar_Click(object sender, EventArgs e)
@@ -77,17 +77,17 @@ namespace FrbaCommerce.Abm_Cliente
         {
             var persona = new Persona
             {
-                calle = tbCalle.Text,
-                nroCalle = Convert.ToInt32(tbNroCalle.Text),
-                ciudad = tbCiudad.Text,
-                codPostal = tbCodigoPostal.Text,
-                departamento = tbDepartamento.Text,
-                eMail = tbEMail.Text,
-                localidad = tbLocalidad.Text,
-                piso = tbPiso.Text,
-                telefono = tbTelefono.Text
+                Domicilio_Calle = tbCalle.Text,
+                Nro_Calle = Convert.ToInt32(tbNroCalle.Text),
+                Ciudad = tbCiudad.Text,
+                Cod_Postal = tbCodigoPostal.Text,
+                Departamento = tbDepartamento.Text,
+                Mail = tbEMail.Text,
+                Localidad = tbLocalidad.Text,
+                Piso = tbPiso.Text,
+                Telefono = tbTelefono.Text
             };
-            return new Cliente(persona, tbNombre.Text, tbApellido.Text, tbDni.Text, tbCuil.Text, (byte)(cbTipoDoc.SelectedIndex + 1), dtpFechaNac.Value);
+            return new Cliente(persona, tbNombre.Text, tbApellido.Text, tbDni.Text, tbCuil.Text, (byte)(cbTipoDoc.SelectedIndex + 1), dtpFechaNac.Text);
         }
 
         private bool Validaciones()

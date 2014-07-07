@@ -35,6 +35,11 @@ namespace FrbaCommerce.ABM_Rol
             FormHelper.volverAPadre(_padre);
         }
 
+        private void FiltrarRolForm_Activated(object sender, System.EventArgs e)
+        {
+            dataGridView1.DataSource = DAORol.getRoles();
+        }
+    
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == Modificar.DisplayIndex) ModificarRol(e.RowIndex);
@@ -43,15 +48,29 @@ namespace FrbaCommerce.ABM_Rol
 
         private void BajaRol(int rowIndex)
         {
-            var dr = MessageBox.Show("¿Activar Rol?", "Baja de Rol",MessageBoxButtons.YesNo);
+            bool habilitado = (bool)dataGridView1["Activo", rowIndex].Value;
+            string msg = "";
+            msg = habilitado ? "¿Desea inhabilitar el rol?" : "¿Desea habilitar el rol?";
+            int val = habilitado ? 0 : 1;
             int id = (int)dataGridView1["ID", rowIndex].Value;
+            var dr = MessageBox.Show(msg, "Atención!", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                DAORol.BajaRol(id, val);
+                if (val == 0)
+                {
+                    DAORol.eliminarRolDeUsuarios(id);
+                }
+ 
+            }
 
-            DAORol.BajaRol(id, dr == DialogResult.Yes ? 1 : 0);
+            dataGridView1.DataSource = DAORol.getRoles();
         }
 
         private void ModificarRol(int rowIndex)
         {
             int id = (int)dataGridView1["ID", rowIndex].Value;
+            this.Hide();
             new ModificarRolForm(id, this).Show();
         }
     }

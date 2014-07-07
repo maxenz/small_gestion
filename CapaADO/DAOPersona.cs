@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce.CapaADO
 {
@@ -16,31 +16,31 @@ namespace FrbaCommerce.CapaADO
         {
             var persona = new Persona
             {
-                eMail = dr["Mail"].ToString(),
-                calle = dr["Domicilio_Calle"].ToString(),
-                nroCalle = Convert.ToInt32(dr["Nro_Calle"]),
-                ciudad = dr["Ciudad"].ToString(),
-                codPostal = dr["Cod_Postal"].ToString(),
-                departamento = dr["Departamento"].ToString(),
-                localidad = dr["Localidad"].ToString(),
-                piso = dr["Piso"].ToString(),
-                telefono = dr["Telefono"].ToString()
+                Mail = dr["Mail"].ToString(),
+                Domicilio_Calle = dr["Domicilio_Calle"].ToString(),
+                Nro_Calle = Convert.ToInt32(dr["Nro_Calle"]),
+                Ciudad = dr["Ciudad"].ToString(),
+                Cod_Postal = dr["Cod_Postal"].ToString(),
+                Departamento = dr["Departamento"].ToString(),
+                Localidad = dr["Localidad"].ToString(),
+                Piso = dr["Piso"].ToString(),
+                Telefono = dr["Telefono"].ToString()
             };
             return persona;
         }
 
         public static int AgregarPersona(Persona persona)
         {
-            return executeProcedureWithReturnValue("agregarPersona", persona.eMail, Convert.ToInt32(persona.telefono), persona.calle,
-                persona.nroCalle, Convert.ToInt32(persona.piso), persona.departamento, persona.localidad,
-                persona.codPostal, persona.ciudad, 1);
+            return executeProcedureWithReturnValue("agregarPersona", persona.Mail, persona.Telefono, persona.Domicilio_Calle,
+                persona.Nro_Calle, persona.Piso, persona.Departamento, persona.Localidad,
+                persona.Cod_Postal, persona.Ciudad, 1);
         }
 
         public static void UpdatePersona(Persona persona, int id)
         {
-            executeProcedure("updatePersona", id, persona.eMail, Convert.ToInt32(persona.telefono), persona.calle,
-                persona.nroCalle, Convert.ToInt32(persona.piso), persona.departamento, persona.localidad,
-                persona.codPostal, persona.ciudad);
+            executeProcedure("updatePersona", id, persona.Mail, persona.Telefono, persona.Domicilio_Calle,
+                persona.Nro_Calle, persona.Piso, persona.Departamento, persona.Localidad,
+                persona.Cod_Postal, persona.Ciudad);
         }
 
         public static void BajaPersona(int id, int act)

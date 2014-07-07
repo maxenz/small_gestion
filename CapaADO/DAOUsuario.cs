@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Exceptions;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
+using FrbaCommerce.Helpers;
 
 namespace FrbaCommerce.CapaADO
 {
     public class DAOUsuario : SqlConnector
     {
+
         public static string GetUserPassword(string nombreUsuario, string pass)
         {
             DataTable dt = retrieveDataTable("getUserPassword", nombreUsuario, pass);
-
-            if (dt.Rows.Count == 0) return null;
 
             DataRow dr = dt.Rows[0];
             return dr["PassSHA256"].ToString();
@@ -44,9 +44,9 @@ namespace FrbaCommerce.CapaADO
 
         public static Usuario GetUsuario(string nombreUsuario, string password)
         {
-            
-
-            var passwordCoincide = GetUserPassword(nombreUsuario, password);
+            Seguridad seg = new Seguridad();
+            string passIngresada = seg.hash(password);
+            string passFromDB = GetUserPassword(nombreUsuario, password);
 
             if (getUsuarioID(nombreUsuario) == 0) throw new UsuarioNoEncontradoException(nombreUsuario);
 
@@ -54,7 +54,7 @@ namespace FrbaCommerce.CapaADO
             if (GetInvalidLogins(nombreUsuario) >= 3) throw new UsuarioAlcanzoLimiteLoginsException(nombreUsuario);
 
             //Chequeo que los hash coincidan
-            if (passwordCoincide != null)
+            if (passIngresada == passFromDB)
             {
                 ResetInvalidLogins(nombreUsuario); //reseteo la cantidad de intentos de logins fallidos
                 var id = getUsuarioID(nombreUsuario);

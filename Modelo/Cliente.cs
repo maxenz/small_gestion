@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FrbaCommerce.Model
+namespace FrbaCommerce.Modelo
 {
     public class Cliente
     {
@@ -18,10 +18,10 @@ namespace FrbaCommerce.Model
         public string Apellido { get; set; }
         public string Documento { get; set; }
         public string Cuil { get; set; }
-        public byte TipoDoc { get; set; }
-        public DateTime FechaDeNacimiento { get; set; }
+        public int TipoDoc { get; set; }
+        public string FechaDeNacimiento { get; set; }
 
-        public Cliente(Persona per,string nomb,string apell,string doc,string cuil,byte tipo,DateTime fechaNac)
+        public Cliente(Persona per,string nomb,string apell,string doc,string cuil,int tipo,string fechaNac)
         {
             Persona = per;
             Nombre = nomb;

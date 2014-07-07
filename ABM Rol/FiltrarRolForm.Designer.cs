@@ -63,7 +63,7 @@
             // 
             // Baja
             // 
-            this.Baja.HeaderText = "Habilitar";
+            this.Baja.HeaderText = "Habilitar/Inhabilitar";
             this.Baja.Name = "Baja";
             this.Baja.ReadOnly = true;
             // 
@@ -75,6 +75,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "FiltrarRolForm";
             this.Text = "Modificar/Dar BAJA Rol";
+            this.Activated += new System.EventHandler(this.FiltrarRolForm_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FiltrarRolForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

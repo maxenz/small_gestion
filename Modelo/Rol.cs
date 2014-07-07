@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FrbaCommerce.Model
+namespace FrbaCommerce.Modelo
 {
     public class Rol
     {

@@ -1,4 +1,4 @@
-﻿namespace FrbaCommerce.Model
+﻿namespace FrbaCommerce.Modelo
 {
     public class Error
     {

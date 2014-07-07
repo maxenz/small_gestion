@@ -5,7 +5,6 @@ AS
 SELECT U.Pswd AS PassSHA256
 FROM SMALL.Usuario U
 WHERE U.Usuario = @usuario
-AND pwdcompare(@pass,U.Pswd) = 1
 
 GO
 
@@ -35,7 +34,7 @@ GO
 /********** TIPOS DOCUMENTO ********/
 CREATE PROCEDURE [SMALL].[getTiposDocumento]
 AS
-SELECT Descripcion 
+SELECT ID,Descripcion 
 FROM SMALL.Tipo_Documento
 GO
 
@@ -203,11 +202,6 @@ GO
 
 
 /********** FUNCIONALIDADES Y ROLES**********/ 
-CREATE PROCEDURE [SMALL].[getFuncionalidades]
-AS
-SELECT * 
-FROM SMALL.Funcionalidades;
-GO
 
 CREATE PROCEDURE [SMALL].[getRoles]
 AS
@@ -265,8 +259,9 @@ GO
 
 CREATE PROCEDURE [SMALL].[getRolFunc](@id int)
 AS
-SELECT *
+SELECT f.ID, f.Descripcion
 FROM SMALL.Rol_Funcionalidad R
+LEFT JOIN SMALL.Funcionalidad f ON f.ID  = R.ID_Funcionalidad
 WHERE R.ID_Rol = @id;
 GO
 

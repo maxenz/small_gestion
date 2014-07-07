@@ -127,7 +127,7 @@ namespace FrbaCommerce.Calificar_Vendedor
         private void btnVolver_Click_1(object sender, EventArgs e)
         {
             this.Hide();
-            FormHelper.mostrarNuevaVentana(new MenuInicio(),this);
+            FormHelper.mostrarNuevaVentana(new MenuPrincipal(),this);
         }
 
     }

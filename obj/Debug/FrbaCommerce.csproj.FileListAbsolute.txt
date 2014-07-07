@@ -145,7 +145,6 @@ C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Gestion_de_Preguntas.Res
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Historial_Cliente.HistorialClienteForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Listado_Estadistico.ListadosForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Login.LoginForm.resources
-C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.MenuInicio.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Generar_Publicacion.frmGenerarPublicacion.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.MenuPrincipal.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Properties.Resources.resources

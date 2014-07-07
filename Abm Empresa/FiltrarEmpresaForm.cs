@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using FrbaCommerce.CapaADO;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 using FrbaCommerce.Helpers;
 
 namespace FrbaCommerce.Abm_Empresa

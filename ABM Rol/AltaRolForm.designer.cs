@@ -28,23 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.clbFuncionalidades = new System.Windows.Forms.CheckedListBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.tbNombre = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnNinguno = new System.Windows.Forms.Button();
-            this.btnTodo = new System.Windows.Forms.Button();
+            this.clbFuncionalidades = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
-            // clbFuncionalidades
-            // 
-            this.clbFuncionalidades.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.clbFuncionalidades.FormattingEnabled = true;
-            this.clbFuncionalidades.Location = new System.Drawing.Point(12, 101);
-            this.clbFuncionalidades.Name = "clbFuncionalidades";
-            this.clbFuncionalidades.Size = new System.Drawing.Size(262, 244);
-            this.clbFuncionalidades.TabIndex = 0;
             // 
             // lblNombre
             // 
@@ -64,7 +52,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(103, 351);
+            this.btnAceptar.Location = new System.Drawing.Point(106, 306);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 3;
@@ -72,38 +60,24 @@
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // btnNinguno
+            // clbFuncionalidades
             // 
-            this.btnNinguno.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
-            this.btnNinguno.Location = new System.Drawing.Point(12, 72);
-            this.btnNinguno.Name = "btnNinguno";
-            this.btnNinguno.Size = new System.Drawing.Size(115, 23);
-            this.btnNinguno.TabIndex = 4;
-            this.btnNinguno.Text = "Seleccionar ninguno";
-            this.btnNinguno.UseVisualStyleBackColor = true;
-            // 
-            // btnTodo
-            // 
-            this.btnTodo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
-            this.btnTodo.Location = new System.Drawing.Point(159, 72);
-            this.btnTodo.Name = "btnTodo";
-            this.btnTodo.Size = new System.Drawing.Size(115, 23);
-            this.btnTodo.TabIndex = 5;
-            this.btnTodo.Text = "Seleccionar todos";
-            this.btnTodo.UseVisualStyleBackColor = true;
+            this.clbFuncionalidades.FormattingEnabled = true;
+            this.clbFuncionalidades.Location = new System.Drawing.Point(15, 56);
+            this.clbFuncionalidades.Name = "clbFuncionalidades";
+            this.clbFuncionalidades.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.clbFuncionalidades.Size = new System.Drawing.Size(259, 238);
+            this.clbFuncionalidades.TabIndex = 4;
             // 
             // AltaRolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(286, 386);
-            this.Controls.Add(this.btnTodo);
-            this.Controls.Add(this.btnNinguno);
+            this.ClientSize = new System.Drawing.Size(286, 334);
+            this.Controls.Add(this.clbFuncionalidades);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.tbNombre);
             this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.clbFuncionalidades);
             this.Name = "AltaRolForm";
             this.Text = "Alta de un Rol";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AltaRolForm_FormClosed);
@@ -114,11 +88,9 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox clbFuncionalidades;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.TextBox tbNombre;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Button btnNinguno;
-        private System.Windows.Forms.Button btnTodo;
+        private System.Windows.Forms.ListBox clbFuncionalidades;
     }
 }

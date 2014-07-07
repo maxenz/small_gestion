@@ -40,14 +40,14 @@ namespace FrbaCommerce.DAO
             Persona p = new Persona();
             p.Activo = Convert.ToInt32(dr["Activo"]);
             p.Ciudad = dr["Ciudad"].ToString();
-            p.Cod_Postal = Convert.ToInt64(dr["Cod_Postal"]);
+            p.Cod_Postal = (dr["Cod_Postal"].ToString());
             p.Departamento = dr["Departamento"].ToString();
             p.Domicilio_Calle = dr["Domicilio_Calle"].ToString();
             p.ID = Convert.ToInt64(dr["ID"]);
             p.Localidad = dr["Localidad"].ToString();
             p.Mail = dr["Mail"].ToString();
             p.Nro_Calle = Convert.ToInt64(dr["Nro_Calle"]);
-            p.Piso = Convert.ToInt32(dr["Piso"]);
+            p.Piso = dr["Piso"].ToString();
             p.Telefono = dr["Telefono"].ToString();
 
             // --> Si la persona es una empresa, tiene razon social.

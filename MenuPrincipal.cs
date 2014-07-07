@@ -14,7 +14,7 @@ using FrbaCommerce.Generar_Publicacion;
 using FrbaCommerce.Helpers;
 using FrbaCommerce.Login;
 using FrbaCommerce.Abm_Empresa;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce
 {
@@ -41,13 +41,23 @@ namespace FrbaCommerce
         public void mostrarPantallaUsuario(Usuario usuario)
         {
             _usuario = usuario;
+            
+            var listaBotones = this.Controls.OfType<Button>();
+            List<Funcionalidad> lstFunc = CapaADO.DAOFuncionalidades.getRolFunc(usuario.RolActivo);
+            List<string> lstNomFunc = new List<string>();
+            foreach (Funcionalidad f in lstFunc) {
+                lstNomFunc.Add(f.getNombreFuncionalidad());
+            }
+            foreach (var btn in listaBotones)
+            {
+                string btnText = btn.Text;
+                bool visibilidad = lstNomFunc.Contains(btnText) ? true : false;
+                btn.Visible = visibilidad;
+            }
+
             logoutToolStripMenuItem.Visible = true;
             loginToolStripMenuItem.Visible = false;
-            var lista = Controls.OfType<Button>();
-            foreach (var button in lista)
-            {
-                button.Visible = true;
-            }
+
             this.Show();
         }
 

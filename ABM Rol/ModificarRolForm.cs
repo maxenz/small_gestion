@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.CapaADO;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
+using FrbaCommerce.Helpers;
 
 namespace FrbaCommerce.ABM_Rol
 {
@@ -25,6 +26,8 @@ namespace FrbaCommerce.ABM_Rol
             CargarFuncionalidades();
         }
 
+
+
         private void CargarRol(int id)
         {
             _rol = DAORol.getRol(id);
@@ -32,14 +35,20 @@ namespace FrbaCommerce.ABM_Rol
 
         private void CargarFuncionalidades()
         {
-            clbFuncionalidades.DataSource = DAOFuncionalidades.getFuncionalidades().DefaultView;
             clbFuncionalidades.DisplayMember = "Descripcion";
             clbFuncionalidades.ValueMember = "ID";
+            clbFuncionalidades.DataSource = DAOFuncionalidades.getFuncionalidades();
 
-            foreach (var func in _rol.Funcionalidades)
+            // --> Voy seleccionando los rubros en la lista
+            for (int i = 0; i < clbFuncionalidades.Items.Count; i++)
             {
-                clbFuncionalidades.SetItemChecked(func,true);
+                Funcionalidad f = (Funcionalidad)clbFuncionalidades.Items[i];
+                if (_rol.Funcionalidades.Exists(x => x == f.getCodFuncionalidad()))
+                {
+                    clbFuncionalidades.SetSelected(i, true);
+                }
             }
+
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -48,22 +57,45 @@ namespace FrbaCommerce.ABM_Rol
             try
             {
                 DAORol.UpdateRol(GenerarRol());
-                MessageBox.Show("Rol agregado correctamente.");
+                MessageBox.Show("Rol modificado correctamente.");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Hubo un error." + ex.Message);
             }
+            
+            this.Hide();
+            FormHelper.volverAPadre(_padre);
+        }
+
+        private void ModificarRolForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormHelper.volverAPadre(_padre);
         }
 
         private bool Validaciones()
         {
-            return true;
+            var listaDeErrores = new List<Error>();
+
+            if (clbFuncionalidades.SelectedItems.Count == 0) listaDeErrores.Add(new Error("Debe seleccionar al menos una Funcionalidad."));
+
+            if (listaDeErrores.Count < 1) return true;
+
+            var mensaje = listaDeErrores.Aggregate("Error en la validacion de datos:", (current, error) => current + ("\n" + error.Descripcion));
+            MessageBox.Show(mensaje);
+            return false;
         }
 
         private Rol GenerarRol()
         {
-            throw new NotImplementedException();
+            List<int> lst = new List<int>();
+            foreach (Funcionalidad f in clbFuncionalidades.SelectedItems)
+            {
+                lst.Add(f.getCodFuncionalidad());
+            }
+            Rol rol = new Rol(tbNombre.Text, lst);
+            rol.Codigo = _rol.Codigo;
+            return rol;
         }
     }
 }

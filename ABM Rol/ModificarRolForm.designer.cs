@@ -28,38 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnTodo = new System.Windows.Forms.Button();
-            this.btnNinguno = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.tbNombre = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
-            this.clbFuncionalidades = new System.Windows.Forms.CheckedListBox();
+            this.clbFuncionalidades = new System.Windows.Forms.ListBox();
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModificarRolForm_FormClosed);
             this.SuspendLayout();
-            // 
-            // btnTodo
-            // 
-            this.btnTodo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
-            this.btnTodo.Location = new System.Drawing.Point(161, 54);
-            this.btnTodo.Name = "btnTodo";
-            this.btnTodo.Size = new System.Drawing.Size(115, 23);
-            this.btnTodo.TabIndex = 11;
-            this.btnTodo.Text = "Seleccionar todos";
-            this.btnTodo.UseVisualStyleBackColor = true;
-            // 
-            // btnNinguno
-            // 
-            this.btnNinguno.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
-            this.btnNinguno.Location = new System.Drawing.Point(12, 54);
-            this.btnNinguno.Name = "btnNinguno";
-            this.btnNinguno.Size = new System.Drawing.Size(115, 23);
-            this.btnNinguno.TabIndex = 10;
-            this.btnNinguno.Text = "Seleccionar ninguno";
-            this.btnNinguno.UseVisualStyleBackColor = true;
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(103, 333);
+            this.btnAceptar.Location = new System.Drawing.Point(97, 293);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 9;
@@ -85,25 +63,22 @@
             // 
             // clbFuncionalidades
             // 
-            this.clbFuncionalidades.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.clbFuncionalidades.FormattingEnabled = true;
-            this.clbFuncionalidades.Location = new System.Drawing.Point(12, 83);
+            this.clbFuncionalidades.Location = new System.Drawing.Point(19, 43);
             this.clbFuncionalidades.Name = "clbFuncionalidades";
-            this.clbFuncionalidades.Size = new System.Drawing.Size(264, 244);
-            this.clbFuncionalidades.TabIndex = 6;
+            this.clbFuncionalidades.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.clbFuncionalidades.Size = new System.Drawing.Size(255, 238);
+            this.clbFuncionalidades.TabIndex = 10;
             // 
             // ModificarRolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(286, 375);
-            this.Controls.Add(this.btnTodo);
-            this.Controls.Add(this.btnNinguno);
+            this.ClientSize = new System.Drawing.Size(286, 320);
+            this.Controls.Add(this.clbFuncionalidades);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.tbNombre);
             this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.clbFuncionalidades);
             this.Name = "ModificarRolForm";
             this.Text = "ModificarRolForm";
             this.ResumeLayout(false);
@@ -113,11 +88,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnTodo;
-        private System.Windows.Forms.Button btnNinguno;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.TextBox tbNombre;
         private System.Windows.Forms.Label lblNombre;
-        private System.Windows.Forms.CheckedListBox clbFuncionalidades;
+        private System.Windows.Forms.ListBox clbFuncionalidades;
     }
 }

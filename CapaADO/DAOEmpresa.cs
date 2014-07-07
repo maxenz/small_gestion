@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce.CapaADO
 {
@@ -57,7 +57,7 @@ namespace FrbaCommerce.CapaADO
 
         public static bool existeCuit(string cuit)
         {
-            var dt = retrieveDataTable("getEmpresaCuit", cuit);
+            DataTable dt = retrieveDataTable("getEmpresaCuit", cuit);
             return dt.Rows.Count > 0;
         }
     }

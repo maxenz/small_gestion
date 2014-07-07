@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FrbaCommerce.Exceptions;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
-namespace FrbaCommerce.Model
+namespace FrbaCommerce.Modelo
 {
     public class Campo : ICampoAbstracto
     {

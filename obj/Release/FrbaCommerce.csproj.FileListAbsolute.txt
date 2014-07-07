@@ -75,7 +75,6 @@ C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Listado_Estadistico.Li
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Login.LoginForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Login.RegistrarUsuarioForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Login.RolesForm.resources
-C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.MenuInicio.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Generar_Publicacion.frmGenerarPublicacion.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.MenuPrincipal.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Properties.Resources.resources

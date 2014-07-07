@@ -9,7 +9,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.CapaADO;
-using FrbaCommerce.Model;
+using FrbaCommerce.Modelo;
 
 namespace FrbaCommerce.Abm_Cliente
 {
@@ -81,17 +81,17 @@ namespace FrbaCommerce.Abm_Cliente
         {
             var persona = new Persona
             {
-                calle = tbCalle.Text,
-                nroCalle = Convert.ToInt32(tbNroCalle.Text),
-                ciudad = tbCiudad.Text,
-                codPostal = tbCodigoPostal.Text,
-                departamento = tbDepartamento.Text,
-                eMail = tbEMail.Text,
-                localidad = tbLocalidad.Text,
-                piso = tbPiso.Text,
-                telefono = tbTelefono.Text
+                Domicilio_Calle = tbCalle.Text,
+                Nro_Calle = Convert.ToInt32(tbNroCalle.Text),
+                Ciudad = tbCiudad.Text,
+                Cod_Postal = tbCodigoPostal.Text,
+                Departamento = tbDepartamento.Text,
+                Mail = tbEMail.Text,
+                Localidad = tbLocalidad.Text,
+                Piso = tbPiso.Text,
+                Telefono = tbTelefono.Text
             };
-            return new Cliente(persona,tbNombre.Text,tbApellido.Text,tbDni.Text,tbCuil.Text,(byte)(cbTipoDoc.SelectedIndex+1),dtpFechaNac.Value);
+            return new Cliente(persona,tbNombre.Text,tbApellido.Text,tbDni.Text,tbCuil.Text,(byte)(cbTipoDoc.SelectedIndex+1),dtpFechaNac.Text);
         }
 
         private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
