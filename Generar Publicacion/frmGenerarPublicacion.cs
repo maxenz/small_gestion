@@ -281,6 +281,7 @@ namespace FrbaCommerce.Generar_Publicacion
                 if (this.publicacion == null)
                 {
                     generarPublicacion();
+
                 }
                 // --> Si estoy editando una publicación..
                 else

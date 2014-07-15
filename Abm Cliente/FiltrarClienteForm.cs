@@ -22,9 +22,9 @@ namespace FrbaCommerce.Abm_Cliente
             CargarGrid();
         }
 
-        private void CargarGrid()
+        public void CargarGrid()
         {
-            var dt = FiltrarCliente(tbNombre.Text,tbApellido.Text,(byte)(cbTipo.SelectedIndex + 1),tbDoc.Text,tbMail.Text);
+            var dt = FiltrarCliente(tbNombre.Text,tbApellido.Text,Convert.ToInt32(cbTipo.SelectedValue),tbDoc.Text,tbMail.Text);
             dataGridView1.DataSource = dt;
                        
             dataGridView1.Columns["ID_Persona"].Visible = false;
@@ -33,7 +33,7 @@ namespace FrbaCommerce.Abm_Cliente
             dataGridView1.AutoResizeRows();
         }
 
-        public DataTable FiltrarCliente(string nom, string ape, byte tipoDoc, string doc, string mail)
+        public DataTable FiltrarCliente(string nom, string ape, int tipoDoc, string doc, string mail)
         {
             var dt = DAOCliente.getClienteTable();
             var filtroFinal = "";
@@ -42,11 +42,8 @@ namespace FrbaCommerce.Abm_Cliente
             if (nom != "") filtros.Add("Nombre LIKE '%" + nom + "%'");
             if (ape != "") filtros.Add("Apellido LIKE '%" + ape + "%'");
             if (mail != "") filtros.Add("Mail LIKE '%" + mail + "%'");
-            if (doc != "" && tipoDoc > -1)
-            {
-                filtros.Add("Num_Doc = " + Convert.ToInt32(doc));
-                filtros.Add("Tipo_Doc = " + tipoDoc);
-            }
+            if (doc != "") filtros.Add("Num_Doc = " + doc);
+            if (tipoDoc != 0) filtros.Add("Tipo_Doc = " + tipoDoc);
 
             foreach (var filt in filtros)
             {
@@ -67,10 +64,20 @@ namespace FrbaCommerce.Abm_Cliente
 
         private void BajaCliente(int rowIndex)
         {
-            var dr = MessageBox.Show("¿Activar cliente?", "Baja de cliente", MessageBoxButtons.YesNo);
+            bool habilitado = (bool)dataGridView1["Activo", rowIndex].Value;
+            string msg = "";
+            msg = habilitado ? "¿Desea inhabilitar al cliente?" : "¿Desea habilitar al cliente?";
+            int val = habilitado ? 0 : 1;
             int id = (int)dataGridView1["ID_Persona", rowIndex].Value;
-
-            DAOPersona.BajaPersona(id, dr == DialogResult.Yes ? 1 : 0);
+            var dr = MessageBox.Show(msg, "Atención!", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                DAOPersona.BajaPersona(id, val);
+                string msgFinal = habilitado ? "El cliente ha sido inhabilitado" : "El cliente ha sido habilitado";
+                MessageBox.Show(msgFinal);
+                var dt = FiltrarCliente(tbNombre.Text, tbApellido.Text, Convert.ToInt32(cbTipo.SelectedValue), tbDoc.Text, tbMail.Text);
+                dataGridView1.DataSource = dt;
+            }
         }
 
         private void ModificarCliente(int rowIndex)
@@ -82,6 +89,14 @@ namespace FrbaCommerce.Abm_Cliente
         private void FiltrarClienteForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             FormHelper.volverAPadre(_padre);
+        }
+
+        private void FiltrarClienteForm_Load(object sender, EventArgs e)
+        {
+            cbTipo.ValueMember = "ID";
+            cbTipo.DisplayMember = "Descripcion";
+            cbTipo.DataSource = DAOCliente.TiposDocumento();
+            cbTipo.SelectedItem = null;
         }
 
     }

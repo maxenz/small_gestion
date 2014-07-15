@@ -218,12 +218,6 @@
       <DependentUpon>MostrarVendedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller.cs" />
-    <Compile Include="Editar Publicacion\SeleccionPublicacion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editar Publicacion\SeleccionPublicacion.Designer.cs">
-      <DependentUpon>SeleccionPublicacion.cs</DependentUpon>
-    </Compile>
     <Compile Include="Exceptions\PasswordIncorrectoException.cs" />
     <Compile Include="Exceptions\RecorridoNotFoundException.cs" />
     <Compile Include="Exceptions\RolYaExisteException.cs" />
@@ -238,6 +232,12 @@
     </Compile>
     <Compile Include="Facturar Publicaciones\frmFacturarPublicaciones.Designer.cs">
       <DependentUpon>frmFacturarPublicaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Publicacion\VerPublicaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\VerPublicaciones.designer.cs">
+      <DependentUpon>VerPublicaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Gestion de Preguntas\VerRespuestas.cs">
       <SubType>Form</SubType>
@@ -309,6 +309,7 @@
     <Compile Include="Modelo\Persona.cs" />
     <Compile Include="Modelo\Publicacion.cs" />
     <Compile Include="Modelo\Rubro.cs" />
+    <Compile Include="Modelo\TipoDocumento.cs" />
     <Compile Include="Modelo\TipoPublicacion.cs" />
     <Compile Include="Modelo\Visibilidad.cs" />
     <Compile Include="Modelo\Campo.cs" />
@@ -320,11 +321,11 @@
     <Compile Include="Modelo\ICampoAbstracto.cs" />
     <Compile Include="Modelo\Rol.cs" />
     <Compile Include="Modelo\Usuario.cs" />
-    <Compile Include="ModificarPassword\frmModificarPassword.cs">
+    <Compile Include="ManejoDeUsuarios\frmManejoUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ModificarPassword\frmModificarPassword.Designer.cs">
-      <DependentUpon>frmModificarPassword.cs</DependentUpon>
+    <Compile Include="ManejoDeUsuarios\frmManejoUsuarios.Designer.cs">
+      <DependentUpon>frmManejoUsuarios.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -391,11 +392,11 @@
     <EmbeddedResource Include="Comprar-Ofertar\MostrarVendedor.resx">
       <DependentUpon>MostrarVendedor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\SeleccionPublicacion.resx">
-      <DependentUpon>SeleccionPublicacion.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Facturar Publicaciones\frmFacturarPublicaciones.resx">
       <DependentUpon>frmFacturarPublicaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\VerPublicaciones.resx">
+      <DependentUpon>VerPublicaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Gestion de Preguntas\VerRespuestas.resx">
       <DependentUpon>VerRespuestas.cs</DependentUpon>
@@ -427,8 +428,8 @@
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModificarPassword\frmModificarPassword.resx">
-      <DependentUpon>frmModificarPassword.cs</DependentUpon>
+    <EmbeddedResource Include="ManejoDeUsuarios\frmManejoUsuarios.resx">
+      <DependentUpon>frmManejoUsuarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -462,8 +463,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Listado Store Procedures\StoresProcedures.txt" />
-    <Content Include="Listado Store Procedures\StoresProceduresLeo.txt" />
-    <Content Include="Listado Store Procedures\StoresProceduresLucho.txt" />
     <Content Include="Resources\Custom-Icon-Design-Pretty-Office-11-Logout.ico" />
     <Content Include="Resources\Custom-Icon-Design-Pretty-Office-6-Logout.ico" />
   </ItemGroup>
@@ -483,6 +482,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Editar Publicacion\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

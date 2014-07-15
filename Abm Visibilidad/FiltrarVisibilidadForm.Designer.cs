@@ -51,19 +51,20 @@
             this.dataGridView1.Location = new System.Drawing.Point(12, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(398, 178);
+            this.dataGridView1.Size = new System.Drawing.Size(726, 178);
             this.dataGridView1.TabIndex = 10;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FiltrarVisibilidadForm_FormClosed);
             // 
             // Modificar
             // 
-            this.Modificar.HeaderText = "Modificar";
+            this.Modificar.HeaderText = "Modificar";this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FiltrarVisibilidadForm_FormClosed);
             this.Modificar.Name = "Modificar";
             this.Modificar.ReadOnly = true;
             // 
             // Baja
             // 
-            this.Baja.HeaderText = "Habilitar";
+            this.Baja.HeaderText = "Habilitar/Inhabilitar";
             this.Baja.Name = "Baja";
             this.Baja.ReadOnly = true;
             // 
@@ -71,7 +72,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 202);
+            this.ClientSize = new System.Drawing.Size(750, 202);
             this.Controls.Add(this.dataGridView1);
             this.Name = "FiltrarVisibilidadForm";
             this.Text = "ModVisibilidadForm";

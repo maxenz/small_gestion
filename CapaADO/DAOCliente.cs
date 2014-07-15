@@ -50,7 +50,7 @@ namespace FrbaCommerce.CapaADO
             var persona = DAOPersona.getPersona(Convert.ToInt32(dr["ID_Persona"]));
             var cliente = new Cliente(persona, dr["Nombre"].ToString(), dr["Apellido"].ToString(),
                 dr["Num_Doc"].ToString(), dr["Cuil"].ToString(), Convert.ToByte(dr["Tipo_Doc"]),
-                dr["Fecha_Nac"].ToString());
+                dr["Fecha_Nac"].ToString(), dr["Telefono"].ToString());
             return cliente;
         }
 
@@ -59,9 +59,23 @@ namespace FrbaCommerce.CapaADO
             DAOPersona.BajaPersona(id,0);
         }
 
-        public static DataTable TiposDocumento()
+        public static List<TipoDocumento> TiposDocumento()
         {
-            return retrieveDataTable("getTiposDocumento");
+            DataTable dt =  retrieveDataTable("getTiposDocumento");
+            List<TipoDocumento> lstTipoDoc = new List<TipoDocumento>();
+            foreach (DataRow r in dt.Rows)
+            {
+                TipoDocumento td  = dataRowToTipoDocumento(r);
+                lstTipoDoc.Add(td);
+            }
+
+            return lstTipoDoc;
+        }
+
+        private static TipoDocumento dataRowToTipoDocumento(DataRow r)
+        {
+            TipoDocumento td = new TipoDocumento(Convert.ToInt32(r["ID"]), r["Descripcion"].ToString());
+            return td;
         }
     }
 }

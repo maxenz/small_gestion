@@ -36,6 +36,11 @@ namespace FrbaCommerce.CapaADO
                 persona.Cod_Postal, persona.Ciudad, 1);
         }
 
+        public static int GetLastPersonaID()
+        {
+            return executeProcedureWithReturnValue("GetLastPersonaID");
+        }
+
         public static void UpdatePersona(Persona persona, int id)
         {
             executeProcedure("updatePersona", id, persona.Mail, persona.Telefono, persona.Domicilio_Calle,

@@ -14,9 +14,11 @@ namespace FrbaCommerce.Abm_Empresa
 {
     public partial class AltaEmpresaForm : Form
     {
-        private Form _padre;
-        
-        public AltaEmpresaForm(Form padre)
+        private AbmEmpresaForm _padre;
+        private Seguridad seg = new Seguridad();
+        CleanFormHelper cfh = new CleanFormHelper();
+
+        public AltaEmpresaForm(AbmEmpresaForm padre)
         {
             InitializeComponent();
             _padre = padre;
@@ -24,7 +26,7 @@ namespace FrbaCommerce.Abm_Empresa
 
         private void bLimpiar_Click(object sender, EventArgs e)
         {
-            LimpiarCampos();   
+            LimpiarCampos();
         }
 
         private void LimpiarCampos()
@@ -43,25 +45,54 @@ namespace FrbaCommerce.Abm_Empresa
 
         private void bAceptar_Click(object sender, EventArgs e)
         {
-            if (Validaciones())
+            if (!empresaValidada()) return;
+            if (!Validaciones()) return;
+
+            try
             {
+                Empresa emp = GenerarEmpresa();
+                DAOEmpresa.AgregarEmpresa(emp);
+                int perID = DAOPersona.GetLastPersonaID();
+                string user = emp.RazonSocial.Substring(0, 3);
+                user = user + emp.Cuit.Substring(0, 5);
+                string password = seg.hash(user);
+                DAOUsuario.AgregarUsuarioAuto(perID, user, password, 3);
+                MessageBox.Show("Empresa agregada correctamente.");
+                this.Hide();
+                FormHelper.volverAPadre(_padre);
 
-                try
-                {
-                    DAOEmpresa.AgregarEmpresa(GenerarEmpresa());
-                    MessageBox.Show("Empresa agregada correctamente.");
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Hubo un error." + ex.Message);
-                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Error en la validacion de datos. Corroborá que todos los campos ingresados esten llenos con la imformación correcta.");
+                MessageBox.Show("Hubo un error." + ex.Message);
             }
 
+        }
+
+        private void validateTextbox(string texto, string error, ref bool vBool, Label lbl)
+        {
+
+            if (texto == "")
+            {
+                errorProvider1.SetError(lbl, error);
+                vBool = false;
+            }
+        }
+
+        private bool empresaValidada()
+        {
+            cfh.cleanErrorProviderInLabels(this.Controls, errorProvider1);
+            bool vBool = true;
+
+            validateTextbox(tbRazonSocial.Text, "Debe ingresar la razón social", ref vBool, lblRazonSocial);
+            validateTextbox(tbNombreContacto.Text, "Debe ingresar el apellido", ref vBool, lblNomContacto);
+            validateTextbox(tbCuit.Text, "Debe ingresar el CUIT", ref vBool, lblCUIT);
+            validateTextbox(tbEMail.Text, "Debe ingresar el EMAIL", ref vBool, lblEmail);
+            validateTextbox(tbTelefono.Text, "Debe ingresar el Teléfono", ref vBool, lblTelefono);
+            validateTextbox(tbCalle.Text, "Debe ingresar la calle", ref vBool, lblCalle);
+            validateTextbox(tbNroCalle.Text, "Debe ingresar el nro de la calle", ref vBool, lblNumero);
+
+            return vBool;
         }
 
         private bool Validaciones()
@@ -69,13 +100,15 @@ namespace FrbaCommerce.Abm_Empresa
             try
             {
                 if (tbCuit.Text.Count() > 50) throw new Exception("Cuit demasiado largo");
+                if (DAOEmpresa.existeCuit(tbCuit.Text)) throw new Exception("Cuit existente");
+                if (DAOEmpresa.existeRazonSocial(tbRazonSocial.Text)) throw new Exception("Razón Social existente");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return false;
             }
-            
+
             return true;
         }
 
@@ -94,7 +127,7 @@ namespace FrbaCommerce.Abm_Empresa
                 Telefono = tbTelefono.Text
             };
             return new Empresa(persona, tbRazonSocial.Text, tbCuit.Text, tbNombreContacto.Text, dtpFechaCreacion.Value);
-               
+
         }
 
         private void btnToday_Click(object sender, EventArgs e)
@@ -104,13 +137,13 @@ namespace FrbaCommerce.Abm_Empresa
 
         private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(Char.IsNumber(e.KeyChar) || e.KeyChar == '\b') ) e.Handled = true;
+            if (!(Char.IsNumber(e.KeyChar) || e.KeyChar == '\b')) e.Handled = true;
         }
 
         private void tbPiso_TextChanged(object sender, EventArgs e)
         {
             //if (Convert.ToInt32(tbPiso.Text) > 255) tbPiso.Text = "";
         }
-        
+
     }
 }

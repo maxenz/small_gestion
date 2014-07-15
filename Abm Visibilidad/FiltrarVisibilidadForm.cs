@@ -22,7 +22,7 @@ namespace FrbaCommerce.Abm_Visibilidad
             CargarGrid();
         }
 
-        private void CargarGrid()
+        public void CargarGrid()
         {
             dataGridView1.DataSource = ADOVisibilidad.getVisibilidades();
 
@@ -38,10 +38,19 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void BajaVisib(int rowIndex)
         {
-            var dr = MessageBox.Show("¿Activar Visibilidad?", "Baja de Visibilidad", MessageBoxButtons.YesNo);
+            bool habilitado = (bool)dataGridView1["Activo", rowIndex].Value;
+            string msg = "";
+            msg = habilitado ? "¿Desea inhabilitar la visibilidad?" : "¿Desea habilitar la visibilidad?";
+            int val = habilitado ? 0 : 1;
             int id = (int)dataGridView1["ID", rowIndex].Value;
-
-            BajarVisib(id, dr == DialogResult.Yes ? 1 : 0);
+            var dr = MessageBox.Show(msg, "Atención!", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                BajarVisib(id, val);
+                string msgFinal = habilitado ? "La visibilidad ha sido inhabilitada" : "La visibilidad ha sido habilitada";
+                MessageBox.Show(msgFinal);
+                CargarGrid();
+            }
         }
 
         private void BajarVisib(int id, int activo)

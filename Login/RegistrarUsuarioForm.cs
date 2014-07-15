@@ -279,7 +279,7 @@ namespace FrbaCommerce.Login
                 Piso = tbPiso.Text,
                 Telefono = tbTelefono.Text
             };
-            return new Cliente(persona, tbNombre.Text, tbApellido.Text, tbDni.Text, tbCuil.Text, Convert.ToInt32(cbTipoDoc.SelectedValue), dtpFechaNac.Text);
+            return new Cliente(persona, tbNombre.Text, tbApellido.Text, tbDni.Text, tbCuil.Text, Convert.ToInt32(cbTipoDoc.SelectedValue), dtpFechaNac.Text, tbTelefono.Text);
         }
         #endregion
 

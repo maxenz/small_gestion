@@ -14,18 +14,20 @@ namespace FrbaCommerce.Abm_Cliente
 {
     public partial class ModClienteForm : Form
     {
+        CleanFormHelper cfh = new CleanFormHelper();
         private Cliente _cliente;
-        private Form _padre;
+        private FiltrarClienteForm _padre;
         private int ID;
-        public ModClienteForm(int id, Form padre)
+        public ModClienteForm(int id, FiltrarClienteForm padre )
         {
             InitializeComponent();
             _padre = padre;
-            _padre.Enabled = false;
             _cliente = DAOCliente.getCliente(id);
             ID = id;
-            cbTipoDoc.DataSource = DAOCliente.TiposDocumento().DefaultView;
             cbTipoDoc.DisplayMember = "Descripcion";
+            cbTipoDoc.ValueMember = "ID";
+            cbTipoDoc.DataSource = DAOCliente.TiposDocumento();
+
             CargarComponentes();
         }
 
@@ -47,30 +49,28 @@ namespace FrbaCommerce.Abm_Cliente
             tbApellido.Text = _cliente.Apellido;
             tbDni.Text = _cliente.Documento;
             tbCuil.Text = _cliente.Cuil;
-            cbTipoDoc.SelectedIndex = _cliente.TipoDoc - 1;
+            cbTipoDoc.SelectedValue = _cliente.TipoDoc;
             dtpFechaNac.Text = _cliente.FechaDeNacimiento;
+            
         }
 
         private void bAceptar_Click(object sender, EventArgs e)
         {
-            if (Validaciones())
-            {
+            if (!clienteValidado()) return;
+            if (!Validaciones()) return;
 
-                try
-                {
-                    DAOCliente.UpdateCliente(GenerarCliente(), ID);
-                    MessageBox.Show("Cliente modificado correctamente.");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Hubo un error." + ex.Message);
-                }
-            }
-            else
+            try
             {
-                MessageBox.Show("Error en la validacion de datos. Corroborá que todos los campos ingresados esten llenos con la imformación correcta.");
+                DAOCliente.UpdateCliente(GenerarCliente(), ID);
+                MessageBox.Show("Cliente modificado correctamente.");
+                _padre.CargarGrid();
+                this.Hide();
+                FormHelper.volverAPadre(_padre);
             }
-            Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hubo un error." + ex.Message);
+            }
         }
 
         private Cliente GenerarCliente()
@@ -87,7 +87,7 @@ namespace FrbaCommerce.Abm_Cliente
                 Piso = tbPiso.Text,
                 Telefono = tbTelefono.Text
             };
-            return new Cliente(persona, tbNombre.Text, tbApellido.Text, tbDni.Text, tbCuil.Text, (byte)(cbTipoDoc.SelectedIndex + 1), dtpFechaNac.Text);
+            return new Cliente(persona, tbNombre.Text, tbApellido.Text, tbDni.Text, tbCuil.Text, Convert.ToInt32(cbTipoDoc.SelectedValue), dtpFechaNac.Text, tbTelefono.Text);
         }
 
         private bool Validaciones()
@@ -106,12 +106,12 @@ namespace FrbaCommerce.Abm_Cliente
 
         private Error ValidarDni()
         {
-            return (DAOCliente.existeDni(tbDni.Text, cbTipoDoc.SelectedIndex + 1) && tbDni.Text != _cliente.Documento )? new Error("El documento ingresado ya está asignado a un usuario registrado.") : null;
+            return (DAOCliente.existeDni(tbDni.Text, Convert.ToInt32(cbTipoDoc.SelectedValue)) && tbDni.Text != _cliente.Documento) ? new Error("El documento ingresado ya está asignado a un usuario registrado.") : null;
         }
 
         private Error ValidarTelefono()
         {
-            return (DAOCliente.existeTelefono(tbTelefono.Text) && tbDni.Text != _cliente.Documento )? new Error("El telefono ingresado ya está asignado a un usuario registrado.") : null;
+            return (DAOCliente.existeTelefono(tbTelefono.Text) && tbTelefono.Text != _cliente.Telefono) ? new Error("El telefono ingresado ya está asignado a un usuario registrado.") : null;
         }
 
         private void bLimpiar_Click(object sender, EventArgs e)
@@ -130,7 +130,33 @@ namespace FrbaCommerce.Abm_Cliente
 
         private void ModClienteForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _padre.Enabled = true;
+            FormHelper.volverAPadre(_padre);
+        }
+
+        private void validateTextbox(string texto, string error, ref bool vBool, Label lbl)
+        {
+            if (texto == "")
+            {
+                errorProvider1.SetError(lbl, error);
+                vBool = false;
+            }
+        }
+
+        private bool clienteValidado()
+        {
+            cfh.cleanErrorProviderInLabels(this.Controls, errorProvider1);
+            bool vBool = true;
+
+            validateTextbox(tbNombre.Text, "Debe ingresar el nombre", ref vBool, lblNombre);
+            validateTextbox(tbApellido.Text, "Debe ingresar el apellido", ref vBool, lblApellido);
+            validateTextbox(tbCuil.Text, "Debe ingresar el CUIL", ref vBool, lblCUIL);
+            validateTextbox(tbEMail.Text, "Debe ingresar el EMAIL", ref vBool, lblEmail);
+            validateTextbox(tbTelefono.Text, "Debe ingresar el Teléfono", ref vBool, lblTelefono);
+            validateTextbox(tbCalle.Text, "Debe ingresar la calle", ref vBool, lblCalle);
+            validateTextbox(tbNroCalle.Text, "Debe ingresar el nro de la calle", ref vBool, lblNumero);
+            validateTextbox(tbDni.Text, "Debe ingresar el nro de documento", ref vBool, lblDNI);
+
+            return vBool;
         }
     }
 }

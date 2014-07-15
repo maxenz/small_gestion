@@ -134,10 +134,8 @@ C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.ABM_Rol.FiltrarRolForm.r
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.ABM_Rol.ModificarRolForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Calificar_Vendedor.Calificar.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Calificar_Vendedor.CalificarDetalle.resources
-C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Comprar_Ofertar.ComprarOfertarForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Comprar_Ofertar.MostrarPublicacionForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Comprar_Ofertar.MostrarVendedorForm.resources
-C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Editar_Publicacion.SeleccionPublicacionForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Facturar_Publicaciones.frmFacturarPublicaciones.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Gestion_de_Preguntas.VerRespuestasForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Gestion_de_Preguntas.ResponderForm.resources
@@ -156,4 +154,6 @@ C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Abm_Visibilidad.FiltrarV
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Abm_Visibilidad.ModVisibilidadForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Login.RegistrarUsuarioForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Login.RolesForm.resources
-C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.ModificarPassword.frmModificarPassword.resources
+C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.ManejoDeUsuarios.frmManejoUsuarios.resources
+C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Comprar_Ofertar.ComprarOfertar.resources
+C:\Users\Maxo\Desktop\tp_gestion\obj\Debug\FrbaCommerce.Generar_Publicacion.VerPublicaciones.resources

@@ -9,6 +9,20 @@ namespace FrbaCommerce.Helpers
 {
     public class CleanFormHelper
     {
+
+        // --> Limpio los error providers del form
+        public void cleanErrorProviderInLabels(Control.ControlCollection ctrls, ErrorProvider err)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is Label)
+                {
+                    err.SetError(ctrl, "");
+                }
+            }
+
+        }
+
         // --> Limpio los textbox de un formulario
         public void cleanTextBoxes(Form frm,List<TextBox> lst)
         {
@@ -72,6 +86,8 @@ namespace FrbaCommerce.Helpers
             }
 
         }
+
+
 
     }
 }

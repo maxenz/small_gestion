@@ -51,6 +51,7 @@
             this.btnAceptar.Text = "Guardar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModVisibilidadForm_FormClosed);
             // 
             // btnLimpiar
             // 

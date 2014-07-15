@@ -20,8 +20,9 @@ namespace FrbaCommerce.Modelo
         public string Cuil { get; set; }
         public int TipoDoc { get; set; }
         public string FechaDeNacimiento { get; set; }
+        public string Telefono { get; set; }
 
-        public Cliente(Persona per,string nomb,string apell,string doc,string cuil,int tipo,string fechaNac)
+        public Cliente(Persona per,string nomb,string apell,string doc,string cuil,int tipo,string fechaNac, string tel)
         {
             Persona = per;
             Nombre = nomb;
@@ -30,6 +31,7 @@ namespace FrbaCommerce.Modelo
             Cuil = cuil;
             TipoDoc = tipo;
             FechaDeNacimiento = fechaNac;
+            Telefono = tel;
         }
     }
 }

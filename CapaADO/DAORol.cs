@@ -54,7 +54,7 @@ namespace FrbaCommerce.CapaADO
 
             table = retrieveDataTable("getRolFunc", id);
 
-            var lista = (from DataRow fila in table.Rows select (Convert.ToInt32(fila["ID_Funcionalidad"]))).ToList();
+            var lista = (from DataRow fila in table.Rows select (Convert.ToInt32(fila["ID"]))).ToList();
             rol.Funcionalidades = lista;
             return rol;
         }

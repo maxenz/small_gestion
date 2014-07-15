@@ -38,11 +38,8 @@
             this.btnABMCliente = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnABMVisibilidad = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnEstadisticas = new System.Windows.Forms.Button();
+            this.btnHistorial = new System.Windows.Forms.Button();
             this.btbABMRol = new System.Windows.Forms.Button();
             this.btnCalificar = new System.Windows.Forms.Button();
             this.btnFacturar = new System.Windows.Forms.Button();
@@ -67,7 +64,7 @@
             this.opcionesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(303, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(347, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -105,7 +102,7 @@
             this.btnComprarOfertar.Name = "btnComprarOfertar";
             this.btnComprarOfertar.Size = new System.Drawing.Size(113, 23);
             this.btnComprarOfertar.TabIndex = 4;
-            this.btnComprarOfertar.Text = "Comprar Ofertar";
+            this.btnComprarOfertar.Text = "Comprar";
             this.btnComprarOfertar.UseVisualStyleBackColor = true;
             this.btnComprarOfertar.Click += new System.EventHandler(this.btnComprarOfertar_Click);
             // 
@@ -113,9 +110,9 @@
             // 
             this.btnGenerarPublicacion.Location = new System.Drawing.Point(159, 99);
             this.btnGenerarPublicacion.Name = "btnGenerarPublicacion";
-            this.btnGenerarPublicacion.Size = new System.Drawing.Size(113, 23);
+            this.btnGenerarPublicacion.Size = new System.Drawing.Size(162, 23);
             this.btnGenerarPublicacion.TabIndex = 5;
-            this.btnGenerarPublicacion.Text = "Generar publicacion";
+            this.btnGenerarPublicacion.Text = "Generar/Editar Publicacion";
             this.btnGenerarPublicacion.UseVisualStyleBackColor = true;
             this.btnGenerarPublicacion.Click += new System.EventHandler(this.btnGenerarPublicacion_Click);
             // 
@@ -148,52 +145,27 @@
             this.btnABMVisibilidad.TabIndex = 9;
             this.btnABMVisibilidad.Text = "ABM Visibilidad";
             this.btnABMVisibilidad.UseVisualStyleBackColor = true;
+            this.btnABMVisibilidad.Click += new System.EventHandler(this.btnABMVisibilidad_Click);
             // 
-            // button3
+            // btnEstadisticas
             // 
-            this.button3.Location = new System.Drawing.Point(159, 244);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(113, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Configurar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnEstadisticas.Location = new System.Drawing.Point(159, 186);
+            this.btnEstadisticas.Name = "btnEstadisticas";
+            this.btnEstadisticas.Size = new System.Drawing.Size(113, 23);
+            this.btnEstadisticas.TabIndex = 12;
+            this.btnEstadisticas.Text = "Estadisticas";
+            this.btnEstadisticas.UseVisualStyleBackColor = true;
+            this.btnEstadisticas.Click += new System.EventHandler(this.btnEstadisticas_Click);
             // 
-            // button4
+            // btnHistorial
             // 
-            this.button4.Location = new System.Drawing.Point(159, 215);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(113, 23);
-            this.button4.TabIndex = 11;
-            this.button4.Text = "Responder";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(159, 186);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(113, 23);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "Publicar";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(159, 157);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(113, 23);
-            this.button6.TabIndex = 13;
-            this.button6.Text = "Consultar";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(159, 128);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(113, 23);
-            this.button7.TabIndex = 14;
-            this.button7.Text = "Vender";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnHistorial.Location = new System.Drawing.Point(159, 157);
+            this.btnHistorial.Name = "btnHistorial";
+            this.btnHistorial.Size = new System.Drawing.Size(113, 23);
+            this.btnHistorial.TabIndex = 13;
+            this.btnHistorial.Text = "Historial";
+            this.btnHistorial.UseVisualStyleBackColor = true;
+            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
             // 
             // btbABMRol
             // 
@@ -207,7 +179,7 @@
             // 
             // btnCalificar
             // 
-            this.btnCalificar.Location = new System.Drawing.Point(159, 273);
+            this.btnCalificar.Location = new System.Drawing.Point(159, 128);
             this.btnCalificar.Name = "btnCalificar";
             this.btnCalificar.Size = new System.Drawing.Size(113, 23);
             this.btnCalificar.TabIndex = 16;
@@ -239,15 +211,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 321);
+            this.ClientSize = new System.Drawing.Size(347, 321);
             this.Controls.Add(this.btnFacturar);
             this.Controls.Add(this.btnCalificar);
             this.Controls.Add(this.btbABMRol);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnHistorial);
+            this.Controls.Add(this.btnEstadisticas);
             this.Controls.Add(this.btnABMVisibilidad);
             this.Controls.Add(this.btnModificarPassword);
             this.Controls.Add(this.lblTitulo);
@@ -282,11 +251,8 @@
         private System.Windows.Forms.Button btnABMCliente;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Button btnABMVisibilidad;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnEstadisticas;
+        private System.Windows.Forms.Button btnHistorial;
         private System.Windows.Forms.Button btbABMRol;
         private System.Windows.Forms.Button btnCalificar;
         private System.Windows.Forms.Button btnFacturar;

@@ -43,6 +43,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
            
         }
 
+
         // --> Seteo el combo de formas de pago
         private void setComboFormasDePago()
         {
@@ -108,6 +109,12 @@ namespace FrbaCommerce.Facturar_Publicaciones
             DataTable dtPubAFacturar = ADOFacturacion
                                         .getPublicacionesAFacturar(cantAFacturar, fecUltPubFacturada, idPersona);
 
+
+            if (dtPubAFacturar.Rows.Count == 0)
+            {
+                MessageBox.Show("No tiene publicaciones para facturar");
+                return;
+            }
 
             // --> Genero factura y devuelvo el id que fue creado.
             int nroFactura = Convert.ToInt32(ADOFacturacion

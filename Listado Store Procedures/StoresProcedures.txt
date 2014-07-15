@@ -285,12 +285,12 @@ CREATE PROCEDURE [SMALL].[GetPublicacionesCalificaciones]
 AS
 
 SELECT *
-FROM SMALL.Publicacion pub
+FROM SMALL.Compra cmp
+LEFT JOIN SMALL.Publicacion pub ON cmp.ID_Publicacion = pub.ID
 WHERE 
-pub.ID_Persona_Venta = @idPersona
-AND pub.ID_Estado = 3
-AND
-((SELECT COUNT(*) FROM SMALL.Calificacion WHERE ID_Publicacion = pub.ID) = 0)
+cmp.ID_Persona_Compra = @idPersona
+AND cmp.ID_Calificacion IS NULL
+
 ORDER BY pub.Fecha_Vencimiento ASC
 
 GO
@@ -307,9 +307,9 @@ DECLARE
 
 SELECT @idCalif = (MAX(ID)+1) FROM SMALL.Calificacion
 
-INSERT INTO SMALL.Calificacion (ID,ID_Publicacion,Estrellas,Descripcion,Fecha, ID_Persona_Calificacion)
+INSERT INTO SMALL.Calificacion (ID,Estrellas,Descripcion,Fecha, ID_Persona_Calificacion)
 VALUES
-(@idCalif,@idPublicacion,@cEstrellas,@detalle,@fechaActual,@idPersona)
+(@idCalif,@cEstrellas,@detalle,@fechaActual,@idPersona)
 
 GO
 
@@ -453,5 +453,593 @@ WHERE ID = @userID
 
 GO
 
- 
- 
+
+/********** GetPersonaIDFromUser **********/
+CREATE PROCEDURE [SMALL].[GetPersonaIDFromUser]
+(@idUser INT)
+
+AS
+
+DECLARE @id_persona INT
+
+SELECT @id_persona = ID_Persona FROM SMALL.Usuario
+WHERE ID = @idUser
+
+RETURN @id_persona
+
+GO
+
+/********** GetLastPersonaID **********/
+CREATE PROCEDURE [SMALL].[GetLastPersonaID]
+
+AS
+
+DECLARE @per_id INT
+
+SELECT TOP 1 @per_id = ID FROM SMALL.Persona
+ORDER BY ID DESC
+
+RETURN @per_id
+
+GO
+
+/********** SetPrimerInicio **********/
+
+CREATE PROCEDURE [SMALL].[SetPrimerInicio]
+(@idPersona INT, @fechaHoy DATETIME)
+
+AS
+
+UPDATE SMALL.USUARIO SET Primera_Vez = @fechaHoy
+WHERE ID_PERSONA = @idPersona
+
+GO
+
+/********** GetUsuario **********/
+CREATE PROCEDURE [SMALL].[GetUsuario]
+(@id INT)
+
+AS
+
+SELECT * FROM SMALL.Usuario WHERE ID = @id
+
+GO
+
+/********** DeletePrimeraVez **********/
+CREATE PROCEDURE [SMALL].[DeletePrimeraVez]
+(@id INT)
+AS
+
+UPDATE SMALL.Usuario SET Primera_Vez = NULL WHERE ID = @id
+
+GO
+
+/********** agregarVisibilidad **********/
+CREATE PROCEDURE [SMALL].[agregarVisibilidad]
+(@id INT, @desc nvarchar(255), @precio numeric(18,2),
+@porcentaje numeric(18,2), @contador INT, @activo INT,
+@dias_activo INT)
+
+AS
+
+INSERT INTO SMALL.Visibilidad VALUES (
+@id, @desc, @precio, @porcentaje, @contador, @activo, @dias_activo)
+
+GO
+
+/********** updateVisibilidad **********/
+
+CREATE PROCEDURE [SMALL].[updateVisibilidad]
+(@id INT, @desc nvarchar(255), @precio numeric(18,2),
+@porcentaje numeric(18,2), @contador INT, @activo INT,
+@dias_activo INT)
+
+AS
+
+UPDATE SMALL.Visibilidad SET
+Descripcion = @desc,
+Precio = @precio,
+Porcentaje = @porcentaje,
+Contador = @contador,
+Activo = @activo,
+Dias_Activo = @dias_activo
+WHERE ID = @id
+
+GO
+
+/********** bajaVisibilidad **********/
+CREATE PROCEDURE [SMALL].[bajaVisibilidad]
+(@id INT, @activo INT)
+
+AS
+
+UPDATE SMALL.Visibilidad 
+SET Activo = @activo
+WHERE ID = @id
+
+GO
+
+
+/********** LOGIN **********/ 
+CREATE PROCEDURE [SMALL].[getUserPassword](@usuario nvarchar(255), @pass nvarchar(255))
+AS
+SELECT U.Pswd AS PassSHA256
+FROM SMALL.Usuario U
+WHERE U.Usuario = @usuario
+
+GO
+
+CREATE PROCEDURE [SMALL].[raiseInvalidLogin](@usuario nvarchar(255))
+AS
+UPDATE SMALL.Usuario
+SET IntentosFallidos=IntentosFallidos+1
+WHERE Usuario=@usuario
+GO
+
+CREATE PROCEDURE [SMALL].[getInvalidLogins](@usuario nvarchar(255))
+AS
+SELECT IntentosFallidos AS InvalidLogins
+FROM SMALL.Usuario
+WHERE Usuario=@usuario;
+GO
+
+CREATE PROCEDURE [SMALL].[resetInvalidLogins](@usuario nvarchar(255))
+AS
+UPDATE SMALL.Usuario
+SET IntentosFallidos=0
+WHERE Usuario=@usuario;
+GO
+
+
+
+/********** TIPOS DOCUMENTO ********/
+CREATE PROCEDURE [SMALL].[getTiposDocumento]
+AS
+SELECT ID,Descripcion 
+FROM SMALL.Tipo_Documento
+GO
+
+
+
+/********** CLIENTE **********/ 
+CREATE PROCEDURE [SMALL].[getClientes]
+AS
+SELECT * 
+FROM SMALL.Cliente C LEFT JOIN SMALL.Persona P ON (C.ID_Persona = P.ID)
+GO
+
+CREATE PROCEDURE [SMALL].[getCliente](@id int)
+AS
+SELECT * 
+FROM SMALL.Cliente C
+LEFT JOIN SMALL.Persona P ON P.ID = C.ID_PERSONA
+WHERE C.ID_Persona = @id;
+GO
+
+CREATE PROCEDURE [SMALL].[agregarCliente](@id int, @nom nvarchar(255), @ape nvarchar(50), @tipo int, @doc numeric(18,0), @cuil nvarchar(50), @fecha datetime)
+AS
+INSERT INTO SMALL.Cliente 
+(
+	ID_Persona,
+	Nombre,
+	Apellido,
+	Tipo_Doc,
+	Num_Doc,
+	Cuil,
+	Fecha_Nac
+	) 
+VALUES 
+(
+	@id,
+	@nom,
+	@ape,
+	@tipo,
+	@doc,
+	@cuil,
+	@fecha
+	);
+GO
+
+CREATE PROCEDURE [SMALL].[updateCliente](@id int, @nom nvarchar(255), @ape nvarchar(50), @tipo int, @doc numeric(18,0), @cuil nvarchar(50), @fecha datetime)
+AS
+UPDATE SMALL.Cliente 
+SET Nombre = @nom, Apellido = @ape, Tipo_Doc = @tipo, Num_Doc = @doc, Cuil = @cuil, Fecha_Nac = @fecha
+WHERE ID_Persona = @id;
+GO
+
+CREATE PROCEDURE [SMALL].[getClienteDni](@dni numeric(18,0), @tipo int)
+AS
+SELECT C.ID_Persona AS Id
+FROM SMALL.Cliente C
+WHERE C.Num_Doc = @dni and c.Tipo_Doc =@tipo;
+GO
+
+CREATE PROCEDURE [SMALL].[getClienteTel](@tel numeric(18,0))
+AS
+SELECT C.ID_Persona AS Id
+FROM SMALL.Cliente C, SMALL.Persona P
+WHERE C.ID_Persona = P.ID and P.Telefono = @tel;
+GO
+
+
+
+/********** EMPRESA **********/ 
+CREATE PROCEDURE [SMALL].[getEmpresas]
+AS
+SELECT * 
+FROM SMALL.Empresa emp LEFT JOIN SMALL.Persona per ON (emp.ID_Persona = per.ID)
+GO
+
+CREATE PROCEDURE [SMALL].[getEmpresa](@IdPersona int)
+AS
+SELECT * 
+FROM SMALL.Empresa E
+WHERE E.ID_Persona = @IdPersona;
+GO
+
+CREATE PROCEDURE [SMALL].[agregarEmpresa](@id int, @razonSoc nvarchar(255), @cuit nvarchar(50), @nom nvarchar(255), @fecha datetime)
+AS
+INSERT INTO SMALL.Empresa 
+(
+	ID_Persona,
+	Razon_Social,
+	Cuit,
+	Nombre_Contacto,
+	Fecha_Creacion
+	) 
+VALUES 
+(
+	@id,
+	@razonSoc,
+	@cuit,
+	@nom,
+	@fecha
+	);
+GO
+
+/********** updateEmpresa **********/ 
+CREATE PROCEDURE [SMALL].[updateEmpresa]
+(@nom nvarchar(255), @id int, @razon_social nvarchar(255), @cuit nvarchar(50) )
+AS
+UPDATE SMALL.Empresa 
+SET Nombre_Contacto = @nom,
+Razon_Social = @razon_social,
+Cuit = @cuit	
+ WHERE ID_Persona = @id;
+
+GO
+
+CREATE PROCEDURE [SMALL].[getPersona](@id int)
+AS
+SELECT * 
+FROM SMALL.Persona E
+WHERE E.ID = @id;
+GO
+
+CREATE PROCEDURE [SMALL].[activarPersona](@id int,@baja bit)
+AS
+UPDATE SMALL.Persona SET Activo = @baja WHERE ID = @id;
+GO
+
+CREATE PROCEDURE [SMALL].[agregarPersona](@mail nvarchar(255),@tel numeric(18,0),@dom nvarchar(255),@nro numeric(18,0),@piso tinyint,@dpto nvarchar(50),@loc nvarchar(255),@cp nvarchar(50),@ciudad nvarchar(255),@activo bit)
+AS
+INSERT INTO SMALL.Persona 
+(
+	Mail,
+	Telefono,
+	Domicilio_Calle,
+	Nro_Calle,
+	Piso,
+	Departamento,
+	Localidad,
+	Cod_Postal,
+	Ciudad,
+	Activo
+	)
+VALUES 
+(
+	@mail,
+	@tel,
+	@dom,
+	@nro,
+	@piso,
+	@dpto,
+	@loc,
+	@cp,
+	@ciudad,
+	@activo
+	);
+RETURN @@IDENTITY
+GO
+
+CREATE PROCEDURE [SMALL].[updatePersona](@id int, @mail nvarchar(255),@tel numeric(18,0),@dom nvarchar(255),@nro numeric(18,0),@piso tinyint,@dpto nvarchar(50),@loc nvarchar(255),@cp nvarchar(50),@ciudad nvarchar(255))
+AS
+UPDATE SMALL.Persona SET Mail = @mail, Telefono = @tel, Domicilio_Calle = @dom, Nro_Calle = @nro, Piso = @piso, Departamento = @dpto, Localidad = @loc, Cod_Postal = @cp, Ciudad = @ciudad
+WHERE ID = @id;
+GO
+
+
+
+/********** FUNCIONALIDADES Y ROLES**********/ 
+
+CREATE PROCEDURE [SMALL].[getRoles]
+AS
+SELECT *
+FROM SMALL.Rol;
+GO
+
+CREATE PROCEDURE [SMALL].[getRolNom](@nombre nvarchar(255))
+AS
+SELECT *
+FROM SMALL.Rol R
+WHERE R.Nombre = @nombre;
+GO
+
+CREATE PROCEDURE [SMALL].[getRolId](@id int)
+AS
+SELECT *
+FROM SMALL.Rol R
+WHERE R.ID = @id;
+GO
+
+CREATE PROCEDURE [SMALL].[agregarRol](@nombre nvarchar(255), @act bit)
+AS
+INSERT INTO SMALL.Rol 
+(
+	Nombre,
+	Activo
+	)
+VALUES 
+(
+	@nombre,
+	@act
+	);
+RETURN @@IDENTITY
+GO
+
+CREATE PROCEDURE [SMALL].[agregarRolFuncionalidad](@idRol int, @idFunc int)
+AS
+INSERT INTO SMALL.Rol_Funcionalidad
+(
+	ID_Rol,
+	ID_Funcionalidad
+	)
+VALUES 
+(
+	@idRol,
+	@idFunc
+	);
+GO
+
+CREATE PROCEDURE [SMALL].[activarRol](@id int,@baja bit)
+AS
+UPDATE SMALL.Rol SET Activo = @baja WHERE ID = @id;
+GO
+
+CREATE PROCEDURE [SMALL].[getRolFunc](@id int)
+AS
+SELECT f.ID, f.Descripcion
+FROM SMALL.Rol_Funcionalidad R
+LEFT JOIN SMALL.Funcionalidad f ON f.ID  = R.ID_Funcionalidad
+WHERE R.ID_Rol = @id;
+GO
+
+/********** GetPublicaciones **********/ 
+
+CREATE PROCEDURE [SMALL].[GetPublicaciones](@IdRubro int, @Descripcion nvarchar(250))
+AS
+	select * from SMALL.Publicacion, SMALL.Publicacion_Rubro, SMALL.Rubro
+	where SMALL.Publicacion.ID = SMALL.Publicacion_Rubro.ID_Publicacion
+	and SMALL.Publicacion_Rubro.ID_Rubro = SMALL.Rubro.ID
+	and SMALL.Rubro.ID = @IdRubro 
+	and CAST(SMALL.Publicacion.Descripcion as nvarchar(250))
+	like '%' + CAST(@Descripcion as nvarchar(250)) + '%'
+	and SMALL.Publicacion.ID_Estado in (1,4) -- Solo se ven las publicadas y pausadas.
+	order by SMALL.Publicacion.ID_Visibilidad
+GO
+
+/********** CheckDebeCalificaciones ***********/ 
+
+CREATE procedure [SMALL].[CheckDebeCalificaciones](@IdPersona int)
+AS
+	Declare @CantCalificaciones int
+	Declare @CantCompras int
+	Declare @CantOfertasGanadas int
+
+	select @CantCalificaciones = COUNT(*) from SMALL.Calificacion
+	where SMALL.Calificacion.ID_Persona_Calificacion = @IdPersona
+
+	select @CantCompras = COUNT(*) from SMALL.Compra
+	where SMALL.Compra.ID_Persona_Compra = @IdPersona
+
+	select @CantOfertasGanadas = COUNT(*) from SMALL.Oferta
+	where SMALL.Oferta.ID_Persona_Oferta = @IdPersona
+	and SMALL.Oferta.Es_Oferta_Ganadora = 1
+
+	if (((@CantCompras + @CantOfertasGanadas) - @CantCalificaciones) > 5)
+	return 1
+	else
+	return 0
+
+
+GO
+
+/********* InsertaCompra ********************/
+Create Procedure [SMALL].[InsertaCompra](@IdPublicacion int, @IdPersona int, @Cantidad int, @Fecha DateTime)
+
+as
+Declare @StockFinal int
+insert into SMALL.Compra
+values (@IdPublicacion,NULL, @IdPersona, @Cantidad, @Fecha) 
+
+update SMALL.Publicacion set SMALL.Publicacion.Stock = SMALL.Publicacion.Stock - @Cantidad
+where SMALL.Publicacion.ID = @IdPublicacion
+
+select @StockFinal = SMALL.Publicacion.Stock from SMALL.Publicacion
+where SMALL.Publicacion.ID = @IdPublicacion
+
+if (@StockFinal = 0)--Si eran los ultimos stocks
+begin
+	update SMALL.Publicacion set SMALL.Publicacion.ID_Estado = 3 --Lo paso a estado finalizado.
+	where SMALL.Publicacion.ID = @IdPublicacion
+end
+
+go
+
+/********* InsertaOferta ********************/
+
+Create Procedure [SMALL].[InsertaOferta](@IdPublicacion int, @IdPersona int, @Precio int, @Fecha DateTime)
+
+As
+
+Insert Into SMALL.Oferta
+Values (@IdPublicacion, @IdPersona, @Precio, @Fecha, 0) 
+
+Update SMALL.Publicacion Set SMALL.Publicacion.Precio = @Precio
+Where SMALL.Publicacion.ID = @IdPublicacion
+
+Go
+
+/********* InsertaPregunta ********************/
+
+Create Procedure [SMALL].[InsertaPregunta](@IdPublicacion int, @IdPersona int, @Pregunta nvarchar(256))
+As
+
+Insert Into SMALL.Pregunta_Respuesta
+Values (@IdPublicacion, @IdPersona, @Pregunta, null, null)
+
+Go
+
+/********* getPreguntasSinResponder ********************/
+
+Create Procedure [SMALL].[getPreguntasSinResponder](@IdPersonaVenta int)
+As
+
+Select SMALL.Publicacion.ID, SMALL.Pregunta_Respuesta.ID, SMALL.Publicacion.Descripcion, SMALL.Pregunta_Respuesta.Pregunta 
+From SMALL.Pregunta_Respuesta, SMALL.Publicacion
+where SMALL.Pregunta_Respuesta.ID_Publicacion = SMALL.Publicacion.ID
+and SMALL.Pregunta_Respuesta.Respuesta IS NULL
+and SMALL.Publicacion.ID_Persona_Venta = @IdPersonaVenta
+
+Go
+
+/********* InsertaRespuesta ********************/
+
+Create Procedure [SMALL].[InsertaRespuesta](@IdPreguntaRespuesta int, @Respuesta nvarchar(256), @Fecha DateTime)
+As
+
+update SMALL.Pregunta_Respuesta set Respuesta = @Respuesta, Fech_Respuesta = @Fecha
+where SMALL.Pregunta_Respuesta.ID = @IdPreguntaRespuesta
+
+Go
+
+
+/********* getPreguntasRespondidas ********************/
+
+Create Procedure [SMALL].[getPreguntasRespondidas](@IdPersonaPregunta int)
+As
+
+Select * From SMALL.Pregunta_Respuesta
+Where ID_Persona_Respuesta = @IdPersonaPregunta
+and Respuesta is not null
+
+Go
+
+/********* getMisComprasRealizadas ********************/
+
+Create Procedure [SMALL].[getMisComprasRealizadas](@idPersona int)
+As
+--Compras hechas
+select Publicacion.Descripcion as Publicación, SMALL.Compra.Cantidad, SMALL.Compra.Fecha
+from SMALL.Compra, SMALL.Publicacion
+where SMALL.Compra.ID_Publicacion = SMALL.Publicacion.ID
+and Compra.ID_Persona_Compra = @idPersona
+
+Go
+
+/********* getMisOfertasRealizadas ********************/
+
+Create Procedure [SMALL].[getMisOfertasRealizadas](@idPersona int)
+As
+--Ofertas hechas
+select Publicacion.Descripcion as Publicación, SMALL.Oferta.Fecha, SMALL.Oferta.Monto, SMALL.Oferta.Es_Oferta_Ganadora as 'Es Ganadora'
+from SMALL.Oferta, SMALL.Publicacion
+where SMALL.Oferta.ID_Publicacion = SMALL.Publicacion.ID
+and Oferta.ID_Persona_Oferta = @idPersona
+
+Go
+
+/********* getCalificacionesOtorgadas ********************/
+
+Create Procedure [SMALL].[getCalificacionesOtorgadas](@idPersona int)
+As
+--Calificaciones otorgadas
+SELECT pub.Descripcion Publicacion,
+cal.Estrellas, cal.Descripcion 'Descripción Calificación',
+cal.Fecha
+FROM SMALL.Calificacion cal
+LEFT JOIN SMALL.Compra cmp ON cmp.ID_Persona_Compra = cal.ID_Persona_Calificacion
+LEFT JOIN SMALL.Publicacion pub ON pub.ID = cmp.ID_Publicacion
+WHERE cal.ID_Persona_Calificacion = @idPersona
+
+Go
+
+/********* getCalificacionesRecibidas ********************/
+
+Create Procedure [SMALL].[getCalificacionesRecibidas](@idPersona int)
+As
+--Calificaciones Recibidas
+SELECT pub.Descripcion Publicacion,
+cal.Estrellas, cal.Descripcion 'Descripción Calificación',
+cal.Fecha
+FROM SMALL.Calificacion cal
+LEFT JOIN SMALL.Compra cmp ON cmp.ID_Persona_Compra = cal.ID_Persona_Calificacion
+LEFT JOIN SMALL.Publicacion pub ON pub.ID = cmp.ID_Publicacion
+WHERE pub.ID_Persona_Venta = @idPersona
+
+Go
+
+/********** getVendedor **********/ 
+
+CREATE PROCEDURE [SMALL].[getVendedor](@IdVendedor int)
+AS
+
+	SELECT * FROM SMALL.Persona per
+	LEFT JOIN SMALL.Cliente cli ON (cli.ID_Persona = per.ID)
+	LEFT JOIN SMALL.Empresa emp ON (emp.ID_Persona = per.ID)
+	where per.ID = @IdVendedor
+GO
+
+/********** getMisPublicaciones **********/ 
+
+CREATE PROCEDURE [SMALL].[getMisPublicaciones](@IdPersona int)
+AS
+
+	select * from SMALL.Publicacion
+	where Publicacion.ID_Persona_Venta = @IdPersona
+GO
+
+/********** GetListadoPublicaciones **********/ 
+CREATE PROCEDURE [SMALL].[GetListadoPublicaciones]
+(@desc nvarchar(255))
+
+AS
+
+SELECT * FROM SMALL.Publicacion WHERE Descripcion LIKE '%' + @desc + '%'
+
+GO
+
+/********** UpdateCompraCalificacion **********/ 
+CREATE PROCEDURE [SMALL].[UpdateCompraCalificacion]
+(@idPub INT, @idPersona INT)
+
+AS
+
+DECLARE @idCalificacion INT
+
+SELECT @idCalificacion = MAX(ID)  FROM SMALL.Calificacion
+
+UPDATE SMALL.Compra SET ID_Calificacion = @idCalificacion
+WHERE ID_Publicacion = @idPub AND ID_Persona_Compra = @idPersona
+
+GO

@@ -121,6 +121,7 @@ namespace FrbaCommerce.DAO
             foreach (DataRow dr in tablePub.Rows)
             {
                 Publicacion pub = dataRowToPublicacion(dr);
+                pub.ID = Convert.ToInt32(dr["ID_Publicacion"]);
                 pub.Rubros = getRubrosFromPublicacion(pub);
                 lstPublicaciones.Add(pub);
             }
@@ -221,6 +222,21 @@ namespace FrbaCommerce.DAO
         public static DataTable getMisPublicaciones(int idPersona)
         {
             return SqlConnector.retrieveDataTable("getMisPublicaciones", idPersona);
+        }
+
+        public static List<Publicacion> getListadoPublicaciones(string desc)
+        {
+            DataTable tablePub = SqlConnector.retrieveDataTable("GetListadoPublicaciones", desc);
+            List<Publicacion> lstPublicaciones = new List<Publicacion>();
+
+            foreach (DataRow dr in tablePub.Rows)
+            {
+                Publicacion pub = dataRowToPublicacion(dr);
+                pub.Rubros = getRubrosFromPublicacion(pub);
+                lstPublicaciones.Add(pub);
+            }
+
+            return lstPublicaciones;
         }
     }
 }

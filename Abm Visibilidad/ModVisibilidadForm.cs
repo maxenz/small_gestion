@@ -9,21 +9,23 @@ using System.Windows.Forms;
 using FrbaCommerce.CapaADO;
 using FrbaCommerce.Exceptions;
 using FrbaCommerce.Modelo;
+using FrbaCommerce.Helpers;
 
 namespace FrbaCommerce.Abm_Visibilidad
 {
     public partial class ModVisibilidadForm : Form
     {
         private int _id;
-        private Form _padre;
+        private FiltrarVisibilidadForm _padre;
         private Visibilidad visib;
-        public ModVisibilidadForm(int id, Form padre)
+        public ModVisibilidadForm(int id, FiltrarVisibilidadForm padre)
         {
             InitializeComponent();
             _padre = padre;
             _id = id;
             visib = GetVisib(id);
             CargarComponentes();
+            tbCodigo.Enabled = false;
         }
 
         private void CargarComponentes()
@@ -31,7 +33,12 @@ namespace FrbaCommerce.Abm_Visibilidad
             tbCodigo.Text = _id.ToString();
             tbDescripcion.Text = visib.Descripcion;
             tbPrecio.Text = visib.Precio.ToString();
-            tbPorcentaje.Text = visib.Porcentaje.ToString();
+            tbPorcentaje.Text = (visib.Porcentaje * 100).ToString();
+        }
+
+        private void ModVisibilidadForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormHelper.volverAPadre(_padre);
         }
 
         private Visibilidad GetVisib(int id)
@@ -57,7 +64,9 @@ namespace FrbaCommerce.Abm_Visibilidad
             {
                 AgregarVisibilidad(GenerarVisibilidad());
                 MessageBox.Show("Visibilidad modificada correctamente");
-                Close();
+                _padre.CargarGrid();
+                this.Hide();
+                FormHelper.volverAPadre(_padre);
             }
             catch (ValidationException ex)
             {
@@ -71,8 +80,8 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void AgregarVisibilidad(Visibilidad visib)
         {
-            SqlConnector.executeProcedure("updateVisibilidad", _id, visib.Descripcion, visib.Precio, visib.Porcentaje,
-                visib.Activo);
+            SqlConnector.executeProcedure("updateVisibilidad", _id, visib.Descripcion, visib.Precio, visib.Porcentaje,0,
+                visib.Activo, visib.DiasActivo);
         }
 
         private bool Validaciones()
@@ -99,9 +108,6 @@ namespace FrbaCommerce.Abm_Visibilidad
             return visibilidad;
         }
 
-        private void ModVisibilidadForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            _padre.Enabled = true;
-        }
+
     }
 }

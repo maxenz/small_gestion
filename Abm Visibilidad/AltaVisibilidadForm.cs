@@ -10,7 +10,7 @@ using FrbaCommerce.CapaADO;
 using FrbaCommerce.DAO;
 using FrbaCommerce.Exceptions;
 using FrbaCommerce.Modelo;
-using FrbaCommerce.Modelo;
+using FrbaCommerce.Helpers;
 
 namespace FrbaCommerce.Abm_Visibilidad
 {
@@ -30,7 +30,8 @@ namespace FrbaCommerce.Abm_Visibilidad
             {
                 AgregarVisibilidad(GenerarVisibilidad());
                 MessageBox.Show("Visibilidad agregada correctamente");
-                Close();
+                this.Hide();
+                FormHelper.volverAPadre(_padre);
             }
             catch (ValidationException ex)
             {
@@ -42,10 +43,15 @@ namespace FrbaCommerce.Abm_Visibilidad
             }
         }
 
+        private void AltaVisibilidadForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormHelper.volverAPadre(_padre);
+        }
+
         private void AgregarVisibilidad(Visibilidad visib)
         {
-            SqlConnector.executeProcedure("agregarVisibilidad",visib.ID, visib.Descripcion, visib.Precio, visib.Porcentaje,
-                visib.Activo);
+            SqlConnector.executeProcedure("agregarVisibilidad",visib.ID, visib.Descripcion, visib.Precio, visib.Porcentaje,0,
+                visib.Activo, visib.DiasActivo);
         }
 
         private bool Validaciones()
@@ -64,7 +70,7 @@ namespace FrbaCommerce.Abm_Visibilidad
                 Convert.ToInt32(tbCodigo.Text),
                 tbDescripcion.Text,
                 Convert.ToDouble(tbPrecio.Text),
-                Convert.ToDouble(tbPorcentaje.Text),
+                Convert.ToDouble(tbPorcentaje.Text) / 100,
                 true,
                 Convert.ToInt32(txtDiasActivo.Text),
                 0
@@ -85,10 +91,6 @@ namespace FrbaCommerce.Abm_Visibilidad
             }
         }
 
-        private void AltaVisibilidadForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            _padre.Enabled = true;
-        }
 
     }
 }

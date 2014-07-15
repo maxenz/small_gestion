@@ -15,7 +15,7 @@ using FrbaCommerce.Helpers;
 using FrbaCommerce.Login;
 using FrbaCommerce.Abm_Empresa;
 using FrbaCommerce.Modelo;
-using FrbaCommerce.ModificarPassword;
+using FrbaCommerce.ManejoDeUsuarios;
 
 namespace FrbaCommerce
 {
@@ -88,14 +88,14 @@ namespace FrbaCommerce
 
         private void btnComprarOfertar_Click(object sender, EventArgs e)
         {
-            FormHelper.mostrarNuevaVentana(new ComprarOfertarForm(this,12), this);
+            FormHelper.mostrarNuevaVentana(new Comprar_Ofertar.ComprarOfertar(this,Globals.userID), this);
         }
 
         private void btnGenerarPublicacion_Click(object sender, EventArgs e)
         {
-            var frmGenPub = new frmGenerarPublicacion(this);
+            var frmListPub = new VerPublicaciones(this);
             //frmGenPub.publicacion = DAO.ADOPublicacion.getPublicacion(1);
-            FormHelper.mostrarNuevaVentana(frmGenPub, this);
+            FormHelper.mostrarNuevaVentana(frmListPub, this);
         }
 
         private void btnABMCliente_Click(object sender, EventArgs e)
@@ -124,17 +124,28 @@ namespace FrbaCommerce
 
         private void btnModificarPassword_Click(object sender, EventArgs e)
         {
-            var frmModificarPassword = new frmModificarPassword(this);
-            FormHelper.mostrarNuevaVentana(frmModificarPassword, this);
+            var frmManejoUsuarios = new frmManejoUsuarios(this,0);
+            FormHelper.mostrarNuevaVentana(frmManejoUsuarios, this);
         }
 
-        private void button5_Click(object sender, EventArgs e)
+
+        private void btnABMVisibilidad_Click(object sender, EventArgs e)
         {
-            var frmGenPub = new frmGenerarPublicacion(this);
-            //frmGenPub.publicacion = DAO.ADOPublicacion.getPublicacion(1);
-            FormHelper.mostrarNuevaVentana(frmGenPub, this);
+            var frmVis = new Abm_Visibilidad.AbmVisibilidadForm(this);
+            FormHelper.mostrarNuevaVentana(frmVis, this);
         }
 
+        private void btnHistorial_Click(object sender, EventArgs e)
+        {
+            var frmHist = new Historial_Cliente.HistorialClienteForm(this,Globals.userID);
+            FormHelper.mostrarNuevaVentana(frmHist, this);
+        }
+
+        private void btnEstadisticas_Click(object sender, EventArgs e)
+        {
+            var frmEst = new Listado_Estadistico.ListadosForm(this);
+            FormHelper.mostrarNuevaVentana(frmEst, this);
+        }
 
     }
 }

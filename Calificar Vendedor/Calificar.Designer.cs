@@ -36,7 +36,6 @@
             this.lblRubro = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvGrillaPublicaciones = new System.Windows.Forms.DataGridView();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.btnPrimero = new System.Windows.Forms.Button();
             this.btnAnterior = new System.Windows.Forms.Button();
             this.btnSiguiente = new System.Windows.Forms.Button();
@@ -130,16 +129,6 @@
             this.dgvGrillaPublicaciones.TabIndex = 1;
             this.dgvGrillaPublicaciones.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGrillaPublicaciones_CellDoubleClick);
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(320, 379);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 19;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click_1);
-            // 
             // btnPrimero
             // 
             this.btnPrimero.Location = new System.Drawing.Point(190, 341);
@@ -189,12 +178,12 @@
             this.Controls.Add(this.btnSiguiente);
             this.Controls.Add(this.btnAnterior);
             this.Controls.Add(this.btnPrimero);
-            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Calificar";
             this.Text = "Calificar";
             this.Load += new System.EventHandler(this.Calificar_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Calificar_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -213,7 +202,6 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgvGrillaPublicaciones;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnPrimero;
         private System.Windows.Forms.Button btnAnterior;
         private System.Windows.Forms.Button btnSiguiente;

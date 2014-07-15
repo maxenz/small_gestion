@@ -11,9 +11,9 @@ using FrbaCommerce.Modelo;
 using FrbaCommerce.DAO;
 using FrbaCommerce.Helpers;
 
-namespace FrbaCommerce.Comprar_Ofertar
+namespace FrbaCommerce.Generar_Publicacion
 {
-    public partial class ComprarOfertar : Form
+    public partial class VerPublicaciones : Form
     {
         Form _padre;
         int _persona;
@@ -30,9 +30,9 @@ namespace FrbaCommerce.Comprar_Ofertar
         int fin = 0;//fin del paginado
         int numeroRegistro;
 
-        public ComprarOfertar(Form padre, int IdPersona)
+        public VerPublicaciones(Form padre)
         {
-            _persona = IdPersona;
+            //_persona = IdPersona;
             _padre = padre;
             InitializeComponent();
         }
@@ -196,26 +196,18 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void dgvGrillaPublicaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            //Publicacion p = new Publicacion();
-            DataGridViewRow r = (DataGridViewRow)dgvGrillaPublicaciones.Rows[e.RowIndex];
-
-            int IdPublicacion = Convert.ToInt32(r.Cells[0].Value);
-            int IdEstado = Convert.ToInt32(r.Cells[3].Value);
-
-            bool SoloVeo;
-
-            if(IdEstado == 2) //Si el estado es pausado, solo se va a ver y no se va a poder operar.
-                SoloVeo = true;
-            else
-                SoloVeo = false;
-
-            Form MostrarPubForm = new MostrarPublicacionForm(this, IdPublicacion, SoloVeo, _persona);
-
-            MostrarPubForm.Visible = true;
-            MostrarPubForm.Activate();
-            MostrarPubForm.Select();
+            int idPublicacion = Convert.ToInt32(dgvGrillaPublicaciones.Rows[e.RowIndex].Cells["ID"].Value);
+            var frmPublicacion = new Generar_Publicacion.frmGenerarPublicacion(this);
+            frmPublicacion.publicacion = DAO.ADOPublicacion.getPublicacion(idPublicacion);
+            FormHelper.mostrarNuevaVentana(frmPublicacion, this);
             this.Hide();
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var frmGenPub = new frmGenerarPublicacion(this);
+            FormHelper.mostrarNuevaVentana(frmGenPub, this);
         }
     }
 }

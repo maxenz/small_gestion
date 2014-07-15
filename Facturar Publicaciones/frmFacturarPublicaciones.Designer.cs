@@ -47,6 +47,7 @@
             // 
             // cmbPersonaFacturar
             // 
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmFacturarPublicaciones_FormClosed);
             this.cmbPersonaFacturar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPersonaFacturar.FormattingEnabled = true;
             this.cmbPersonaFacturar.Location = new System.Drawing.Point(6, 32);

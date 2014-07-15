@@ -101,6 +101,9 @@
             // 
             // btnLimpiarForm
             // 
+
+
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmGenerarPublicacion_FormClosed);
             this.btnLimpiarForm.Location = new System.Drawing.Point(15, 174);
             this.btnLimpiarForm.Name = "btnLimpiarForm";
             this.btnLimpiarForm.Size = new System.Drawing.Size(109, 23);
@@ -347,6 +350,7 @@
             // 
             // frmGenerarPublicacion
             // 
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 203);
@@ -358,6 +362,8 @@
             this.gpGenerarPublicacion.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
+
+
 
         }
 

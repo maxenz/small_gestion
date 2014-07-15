@@ -25,6 +25,10 @@ namespace FrbaCommerce.Abm_Visibilidad
             var nuevaForma = new AltaVisibilidadForm(this);
             FormHelper.mostrarNuevaVentana(nuevaForma, this);
         }
+        private void AbmVisibilidadForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormHelper.volverAPadre(_padre);
+        }
 
         private void bModificacion_Click(object sender, EventArgs e)
         {

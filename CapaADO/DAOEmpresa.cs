@@ -37,11 +37,10 @@ namespace FrbaCommerce.CapaADO
             return id;
         }
 
-
         public static void UpdateEmpresa(Empresa empresa, int id)
         {
             DAOPersona.UpdatePersona(empresa.Persona,id);
-            executeProcedure("updateEmpresa", empresa.NombreContacto,id);
+            executeProcedure("updateEmpresa", empresa.NombreContacto,id, empresa.RazonSocial, empresa.Cuit);
         }
 
         public static void BajaEmpresa(int id)
@@ -51,7 +50,7 @@ namespace FrbaCommerce.CapaADO
 
         public static bool existeRazonSocial(string razonSoc)
         {
-            var dt = retrieveDataTable("getEmpresaRazonSoc", razonSoc);
+            DataTable dt = retrieveDataTable("getEmpresaRazonSoc", razonSoc);
             return dt.Rows.Count > 0;
         }
 

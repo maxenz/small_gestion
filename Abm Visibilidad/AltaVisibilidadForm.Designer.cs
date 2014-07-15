@@ -41,6 +41,7 @@
             this.txtDiasActivo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            
             // 
             // label1
             // 

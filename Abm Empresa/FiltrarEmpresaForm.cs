@@ -28,7 +28,7 @@ namespace FrbaCommerce.Abm_Empresa
             CargarGrid();
         }
 
-        private void CargarGrid()
+        public void CargarGrid()
         {
             dataGridView1.DataSource = FiltrarEmpresa(tbEmail.Text, tbRazonSocial.Text, tbCuit.Text);
 
@@ -67,10 +67,19 @@ namespace FrbaCommerce.Abm_Empresa
 
         private void BajaEmpresa(int rowIndex)
         {
-            var dr = MessageBox.Show("¿Activar empresa?", "Baja de empresa",MessageBoxButtons.YesNo);
+            bool habilitado = (bool)dataGridView1["Activo", rowIndex].Value;
+            string msg = "";
+            msg = habilitado ? "¿Desea inhabilitar a la empresa?" : "¿Desea habilitar a la empresa?";
+            int val = habilitado ? 0 : 1;
             int id = (int)dataGridView1["ID_Persona", rowIndex].Value;
-
-            DAOPersona.BajaPersona(id, dr == DialogResult.Yes ? 1 : 0);
+            var dr = MessageBox.Show(msg, "Atención!", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                DAOPersona.BajaPersona(id, val);
+                string msgFinal = habilitado ? "La empresa ha sido inhabilitada" : "La empresa ha sido habilitada";
+                MessageBox.Show(msgFinal);
+                CargarGrid();
+            }
         }
 
         private void ModificarEmpresa(int rowIndex)

@@ -13,6 +13,7 @@ using FrbaCommerce.CapaADO;
 using FrbaCommerce.Exceptions;
 using FrbaCommerce.Helpers;
 using FrbaCommerce.Modelo;
+using FrbaCommerce.ManejoDeUsuarios;
 
 namespace FrbaCommerce.Login
 {
@@ -61,15 +62,15 @@ namespace FrbaCommerce.Login
             }
         }
 
-
-
         private void button1_Click(object sender, EventArgs e)
         {
+            
             string nombreUsuario = tBoxNombreUsuario.Text;
             string password = tBoxPassword.Text;
             try
             {
                 Usuario usuario = DAOUsuario.GetUsuario(nombreUsuario, password);
+
                 var roles = DAORol.getRolesUsuario(usuario.Id);
                 if (roles.Rows.Count == 1)
                 {
@@ -98,7 +99,15 @@ namespace FrbaCommerce.Login
                 }
 
                 this.Hide();
-                
+
+                bool primerIngreso = esPrimerIngreso(usuario.Id);
+                if (primerIngreso)
+                {
+                    int personaID = DAOUsuario.getPersonaIDFromUser(usuario.Id);
+                    DAOUsuario.DeletePrimeraVez(usuario.Id);
+                    var frmManejoUsuarios = new frmManejoUsuarios(this,1);
+                    FormHelper.mostrarNuevaVentana(frmManejoUsuarios, this);
+                }
                 
             }
 
@@ -125,6 +134,18 @@ namespace FrbaCommerce.Login
             {
                 MessageBox.Show("El usuario " + noRolEx.getNombreUsuario() + " está inhabilitado.");
             }
+        }
+
+
+        private static bool esPrimerIngreso(int id)
+        {
+            List<Usuario> usrs = new List<Usuario>();
+            usrs = DAOUsuario.getUsuarios();
+            usrs = usrs.Where(x => x.Id == id).ToList<Usuario>();
+            Usuario usr = usrs.FirstOrDefault();
+
+            return usr.Primera_vez != "" ? true : false;
+
         }
 
         private bool datosValidos(string username, string password)

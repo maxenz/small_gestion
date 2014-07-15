@@ -10,19 +10,28 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.CapaADO;
 using FrbaCommerce.Modelo;
+using FrbaCommerce.Helpers;
 
 namespace FrbaCommerce.Abm_Cliente
 {
     public partial class AltaClienteForm : Form
     {
         private Form _padre;
+        private CleanFormHelper cfh = new CleanFormHelper();
+        private Seguridad seg = new Seguridad();
         
         public AltaClienteForm(Form padre)
         {
             InitializeComponent();
             _padre = padre;
-            cbTipoDoc.DataSource = DAOCliente.TiposDocumento().DefaultView;
+
+            cbTipoDoc.ValueMember = "ID";
             cbTipoDoc.DisplayMember = "Descripcion";
+            cbTipoDoc.DataSource = DAOCliente.TiposDocumento();
+        }
+        private void AltaCliente_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormHelper.volverAPadre(_padre);
         }
         
         private void bLimpiar_Click(object sender, EventArgs e)
@@ -41,16 +50,27 @@ namespace FrbaCommerce.Abm_Cliente
 
         private void bAceptar_Click(object sender, EventArgs e)
         {
+            if (!clienteValidado()) return;
+
             if (!Validaciones()) return;
             try
             {
-                DAOCliente.AgregarCliente(GenerarCliente());
+                Cliente cli = GenerarCliente();
+                DAOCliente.AgregarCliente(cli);
+                int perID = DAOPersona.GetLastPersonaID();
+                string user = cli.Apellido.Substring(0,3);
+                user = user + cli.Documento.Substring(0,3);
+                string password = seg.hash(user);
+                DAOUsuario.AgregarUsuarioAuto(perID, user, password, 3);
                 MessageBox.Show("Cliente agregado correctamente.");
+                this.Hide();
+                FormHelper.volverAPadre(_padre);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Hubo un error." + ex.Message);
             }
+
         }
 
         private bool Validaciones()
@@ -67,9 +87,36 @@ namespace FrbaCommerce.Abm_Cliente
             return false;
         }
 
+        private void validateTextbox(string texto, string error, ref bool vBool, Label lbl)
+        {
+
+            if (texto == "")
+            {
+                errorProvider1.SetError(lbl, error);
+                vBool = false;
+            }
+        }
+
+        private bool clienteValidado()
+        {
+            cfh.cleanErrorProviderInLabels(this.Controls, errorProvider1);
+            bool vBool = true;
+
+            validateTextbox(tbNombre.Text, "Debe ingresar el nombre", ref vBool, lblNombre);
+            validateTextbox(tbApellido.Text, "Debe ingresar el apellido", ref vBool, lblApellido);
+            validateTextbox(tbCuil.Text, "Debe ingresar el CUIL", ref vBool, lblCUIL);
+            validateTextbox(tbEMail.Text, "Debe ingresar el EMAIL", ref vBool, lblEmail);
+            validateTextbox(tbTelefono.Text, "Debe ingresar el Teléfono", ref vBool, lblTelefono);
+            validateTextbox(tbCalle.Text, "Debe ingresar la calle", ref vBool, lblCalle);
+            validateTextbox(tbNroCalle.Text, "Debe ingresar el nro de la calle", ref vBool, lblNumero);
+            validateTextbox(tbDni.Text, "Debe ingresar el nro de documento", ref vBool, lblDNI);
+
+            return vBool;
+        }
+
         private Error ValidarDni()
         {
-            return DAOCliente.existeDni(tbDni.Text, cbTipoDoc.SelectedIndex + 1)? new Error("El documento ingresado ya está asignado a un usuario registrado."):null;
+            return DAOCliente.existeDni(tbDni.Text, Convert.ToInt32(cbTipoDoc.SelectedValue))? new Error("El documento ingresado ya está asignado a un usuario registrado."):null;
         }
 
         private Error ValidarTelefono()
@@ -91,7 +138,7 @@ namespace FrbaCommerce.Abm_Cliente
                 Piso = tbPiso.Text,
                 Telefono = tbTelefono.Text
             };
-            return new Cliente(persona,tbNombre.Text,tbApellido.Text,tbDni.Text,tbCuil.Text,(byte)(cbTipoDoc.SelectedIndex+1),dtpFechaNac.Text);
+            return new Cliente(persona,tbNombre.Text,tbApellido.Text,tbDni.Text,tbCuil.Text,Convert.ToInt32(cbTipoDoc.SelectedValue),dtpFechaNac.Text, tbTelefono.Text);
         }
 
         private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
@@ -103,5 +150,6 @@ namespace FrbaCommerce.Abm_Cliente
         {
             //if (Convert.ToInt32(tbPiso.Text) > 255) tbPiso.Text = "";
         }
+
     }
 }

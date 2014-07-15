@@ -42,6 +42,7 @@
             this.lbTitulo.Size = new System.Drawing.Size(201, 31);
             this.lbTitulo.TabIndex = 10;
             this.lbTitulo.Text = "ABM Visibilidad";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AbmVisibilidadForm_FormClosed);
             // 
             // bModificacion
             // 

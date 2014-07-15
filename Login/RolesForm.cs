@@ -24,9 +24,10 @@ namespace FrbaCommerce.Login
         private void CargarRoles()
         {
             var roles = DAORol.getRolesUsuario(Usuario.Id);
-            lbListaRoles.DataSource = roles.DefaultView;
             lbListaRoles.DisplayMember = "Nombre";
             lbListaRoles.ValueMember = "ID";
+            lbListaRoles.DataSource = roles;
+
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

@@ -62,7 +62,6 @@ C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Abm_Visibilidad.Filtra
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Abm_Visibilidad.ModVisibilidadForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Calificar_Vendedor.Calificar.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Calificar_Vendedor.CalificarDetalle.resources
-C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Comprar_Ofertar.ComprarOfertarForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Comprar_Ofertar.MostrarPublicacionForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Comprar_Ofertar.MostrarVendedorForm.resources
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Editar_Publicacion.SeleccionPublicacionForm.resources
@@ -85,3 +84,7 @@ C:\Users\Maxo\Desktop\tp_gestion\bin\Release\FrbaCommerce.exe
 C:\Users\Maxo\Desktop\tp_gestion\bin\Release\FrbaCommerce.pdb
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.exe
 C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.pdb
+C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.ManejoDeUsuarios.frmManejoUsuarios.resources
+C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Generar_Publicacion.VerPublicaciones.resources
+C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Generar_Publicacion.ListPublicaciones.resources
+C:\Users\Maxo\Desktop\tp_gestion\obj\Release\FrbaCommerce.Comprar_Ofertar.ComprarOfertar.resources

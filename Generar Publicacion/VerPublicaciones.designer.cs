@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Comprar_Ofertar
+﻿namespace FrbaCommerce.Generar_Publicacion
 {
-    partial class ComprarOfertar
+    partial class VerPublicaciones
     {
         /// <summary>
         /// Required designer variable.
@@ -45,8 +45,10 @@
             this.llblUltimo = new System.Windows.Forms.LinkLabel();
             this.lblPaginas = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrillaPublicaciones)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvGrillaPublicaciones
@@ -206,12 +208,23 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Location = new System.Drawing.Point(12, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(654, 78);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleccione los Criterios de Búsqueda:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(467, 15);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Nueva publicacion";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox2
             // 
@@ -220,9 +233,9 @@
             this.groupBox2.Size = new System.Drawing.Size(654, 406);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Doble click para ver la publicacion en detalle:";
+            this.groupBox2.Text = "Doble click para editar la publicacion:";
             // 
-            // ComprarOfertarForm
+            // VerPublicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -245,10 +258,11 @@
             this.Controls.Add(this.dgvGrillaPublicaciones);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
-            this.Name = "ComprarOfertarForm";
-            this.Text = "Comprar / Ofertar";
+            this.Name = "VerPublicaciones";
+            this.Text = "Listado de Publicaciones";
             this.Load += new System.EventHandler(this.ComprarOfertarForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrillaPublicaciones)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,5 +288,6 @@
         private System.Windows.Forms.Label lblPaginas;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button1;
     }
 }

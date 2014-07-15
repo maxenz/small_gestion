@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.ModificarPassword
+﻿namespace FrbaCommerce.ManejoDeUsuarios
 {
-    partial class frmModificarPassword
+    partial class frmManejoUsuarios
     {
         /// <summary>
         /// Required designer variable.
@@ -37,6 +37,7 @@
             // 
             // cmbUsuario
             // 
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmManejoUsuarios_FormClosed);
             this.cmbUsuario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbUsuario.FormattingEnabled = true;
             this.cmbUsuario.Location = new System.Drawing.Point(24, 40);
@@ -72,7 +73,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(92, 122);
+            this.btnGuardar.Location = new System.Drawing.Point(92, 129);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 7;
@@ -80,17 +81,17 @@
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // frmModificarPassword
+            // frmManejoUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(259, 157);
+            this.ClientSize = new System.Drawing.Size(259, 164);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbUsuario);
-            this.Name = "frmModificarPassword";
+            this.Name = "frmManejoUsuarios";
             this.Text = "CambiarPassword";
             this.Load += new System.EventHandler(this.CambiarPassword_Load);
             this.ResumeLayout(false);
